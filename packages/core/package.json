@@ -1,12 +1,13 @@
 {
   "name": "@99mini/i18n",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Core functionality for Chrome Extension i18n library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
