@@ -26,4 +26,7 @@ dist-ssr
 # i18n
 # add .i18n folder for real project
 # .i18n
+# or
+# .i18n/schema.d.ts
+# .i18n/i18n.json
 

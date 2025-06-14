@@ -1,36 +1,36 @@
-import { I18nProvider, useI18n, useTranslation, Trans } from "@99mini/i18n-react";
-import React from "react";
+import type { ReactNode } from 'react';
 
-const ReactLifecycleI18nProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <I18nProvider>
-      {children}
-    </I18nProvider>
-  );
-}
+import { I18nProvider, Trans, useI18n, useTranslation } from '@99mini/i18n-react';
 
+const ReactLifecycleI18nProvider = ({ children }: { children: ReactNode }) => {
+  return <I18nProvider>{children}</I18nProvider>;
+};
 
 const I18nComponent = () => {
   const { t } = useI18n();
   return (
     <div>
-      <h1>{t("hello")}</h1>
+      <h1>{t('hello')}</h1>
     </div>
   );
-}
+};
 
 const TranslationComponent = () => {
   const t = useTranslation();
   return (
     <div>
-      <h1>{t("hello")}</h1>
+      <h1>{t('hello')}</h1>
     </div>
   );
-}
+};
 
 const TransComponent = () => {
-  return <h1><Trans keyword="hello" /></h1>
-}
+  return (
+    <h1>
+      <Trans keyword="hello" />
+    </h1>
+  );
+};
 
 const ReactLifecycle = () => {
   return (
@@ -43,6 +43,5 @@ const ReactLifecycle = () => {
     </ReactLifecycleI18nProvider>
   );
 };
-  
 
 export default ReactLifecycle;
