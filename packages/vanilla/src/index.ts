@@ -1,7 +1,7 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 Vanilla JS 구현
  */
-import { I18n, getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
+import { getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
 
 /**
  * I18n 인스턴스 클래스

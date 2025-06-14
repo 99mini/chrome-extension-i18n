@@ -4,3 +4,5 @@ declare global {
     type Language = 'en' | 'ko';
   }
 }
+
+export {}

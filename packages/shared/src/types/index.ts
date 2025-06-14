@@ -2,9 +2,13 @@
  * i18n 라이브러리에서 사용하는 공통 타입 정의
  */
 
+// 전역 I18n 네임스페이스 타입을 참조
+// 참고: .i18n/schema.d.ts에서 정의된 I18n 네임스페이스와 병합됩니다.
 export namespace I18n {
-  export type Language = 'en';
-  export type Key = '';
+  // 실제 타입은 .i18n/schema.d.ts에서 정의됩니다.
+  // 여기서는 기본 타입만 제공합니다.
+  export type Key = string;
+  export type Language = string;
 }
 
 /**

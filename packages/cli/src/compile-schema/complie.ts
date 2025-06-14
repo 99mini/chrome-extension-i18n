@@ -14,7 +14,14 @@ function compileSchemaSync(basePath: string, outputPath: string) {
 
   const schemaPath = path.join(outputPath, 'schema.d.ts');
 
-  const schema = `namespace I18n {\n  type Key = ${keys.map((key) => `'${key}'`).join(' | ')};\n  type Language = ${languages.map((language) => `'${language}'`).join(' | ')};\n}`;
+  const schema = `declare global {
+  namespace I18n {
+    type Key = ${keys.map((key) => `'${key}'`).join(' | ')};
+    type Language = ${languages.map((language) => `'${language}'`).join(' | ')};
+  }
+}
+
+export {}`;
 
   fs.writeFileSync(schemaPath, schema);
 }

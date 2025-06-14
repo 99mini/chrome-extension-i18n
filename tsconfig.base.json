@@ -16,6 +16,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/env.d.ts"],
-  "exclude": ["node_modules", "public/_locales", ".i18n.json"]
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "type.d.ts"],
+  "exclude": ["node_modules", "public/_locales", ".i18n.json", "dist", "**/*.{spec, test}.ts"]
 }
