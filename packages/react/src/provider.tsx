@@ -1,9 +1,10 @@
 /**
  * I18n 제공자 컴포넌트
  */
-import React, { ReactNode, useEffect, useState } from "react";
-import { getCurrentLanguage, loadI18nData, t as translate, Language, LocaleMessages } from "@99mini/i18n";
-import { I18nContext, I18nContextType } from "./context";
+import React, { ReactNode, useEffect, useState } from 'react';
+
+import { I18nContext, I18nContextType } from './context';
+import { Language, LocaleMessages, getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
 
 // I18n 제공자 속성 타입 정의
 export interface I18nProviderProps {
@@ -15,7 +16,7 @@ export interface I18nProviderProps {
 /**
  * I18n 제공자 컴포넌트
  */
-export const I18nProvider = ({ children, initialLanguage, i18nPath = "./.i18n/i18n.json" }: I18nProviderProps) => {
+export const I18nProvider = ({ children, initialLanguage, i18nPath = './.i18n/i18n.json' }: I18nProviderProps) => {
   // 현재 언어 상태
   const [language, setLanguage] = useState<Language>(initialLanguage || getCurrentLanguage());
   // 메시지 상태

@@ -13,9 +13,10 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "clean": "rimraf dist",
     "lint": "eslint src --ext .ts",
+    "format": "prettier --write src",
     "test": "vitest watch",
     "test:ci": "vitest run",
-    "release": "pnpm run build && pnpm publish"
+    "release": "pnpm run clean && pnpm run build && pnpm run publish"
   },
   "keywords": [
     "i18n",
@@ -23,7 +24,7 @@
     "internationalization"
   ],
   "author": "99mini",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@99mini/i18n-shared": "workspace:*"
   },

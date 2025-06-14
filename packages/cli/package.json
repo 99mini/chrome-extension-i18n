@@ -15,9 +15,10 @@
     "dev": "tsup src/index.ts src/bin.ts --format cjs --dts --watch",
     "clean": "rimraf dist",
     "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src",
     "test": "vitest watch",
     "test:ci": "vitest run",
-    "release": "pnpm run build && pnpm publish"
+    "release": "pnpm run clean && pnpm run build && pnpm run publish"
   },
   "keywords": [
     "chrome-extension",

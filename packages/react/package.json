@@ -13,6 +13,7 @@
     "dev": "tsup --config tsup.config.ts --watch",
     "clean": "rimraf dist",
     "lint": "eslint src --ext .ts,.tsx",
+    "format": "prettier --write src",
     "test": "vitest watch",
     "test:ci": "vitest run",
     "release": "pnpm run clean && pnpm run build && pnpm run publish"
@@ -24,7 +25,7 @@
     "react"
   ],
   "author": "99mini",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@99mini/i18n": "workspace:*",
     "@99mini/i18n-shared": "workspace:*"

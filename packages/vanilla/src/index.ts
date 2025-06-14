@@ -1,7 +1,7 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 Vanilla JS 구현
  */
-import { t as translate, getCurrentLanguage, loadI18nData, Language, LocaleMessages } from "@99mini/i18n";
+import { Language, LocaleMessages, getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
 
 /**
  * I18n 인스턴스 클래스
@@ -15,11 +15,11 @@ class I18nVanilla {
    * @param initialLanguage 초기 언어 (선택적)
    * @param i18nPath i18n 데이터 경로 (선택적)
    */
-  constructor(initialLanguage?: Language, i18nPath: string = "./.i18n/i18n.json") {
+  constructor(initialLanguage?: Language, i18nPath: string = './.i18n/i18n.json') {
     this.language = initialLanguage || getCurrentLanguage();
 
     // 개발 환경에서 데이터 로드
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === 'development') {
       this.loadMessages(i18nPath);
     }
   }
@@ -44,9 +44,9 @@ class I18nVanilla {
 
     // 언어 변경 이벤트 발생
     document.dispatchEvent(
-      new CustomEvent("i18n-language-changed", {
+      new CustomEvent('i18n-language-changed', {
         detail: { language: lang },
-      })
+      }),
     );
 
     // 자동으로 페이지 내 요소 업데이트
@@ -76,13 +76,13 @@ class I18nVanilla {
    */
   updateElements(): void {
     // data-i18n 속성을 가진 모든 요소 찾기
-    const elements = document.querySelectorAll("[data-i18n]");
+    const elements = document.querySelectorAll('[data-i18n]');
 
     elements.forEach((element) => {
-      const key = element.getAttribute("data-i18n");
+      const key = element.getAttribute('data-i18n');
       if (key) {
         // 대체 문자열 처리
-        const substitutions = element.getAttribute("data-i18n-substitutions");
+        const substitutions = element.getAttribute('data-i18n-substitutions');
         const subs = substitutions ? JSON.parse(substitutions) : undefined;
 
         // 번역된 텍스트로 업데이트
@@ -101,11 +101,14 @@ class I18nVanilla {
     if (!element) return;
 
     // 키 속성 설정
-    element.setAttribute("data-i18n", key);
+    element.setAttribute('data-i18n', key);
 
     // 대체 문자열이 있는 경우 속성 설정
     if (substitutions) {
-      element.setAttribute("data-i18n-substitutions", JSON.stringify(Array.isArray(substitutions) ? substitutions : [substitutions]));
+      element.setAttribute(
+        'data-i18n-substitutions',
+        JSON.stringify(Array.isArray(substitutions) ? substitutions : [substitutions]),
+      );
     }
 
     // 번역 적용
@@ -117,26 +120,26 @@ class I18nVanilla {
    */
   autoInitialize(): void {
     // DOM이 이미 로드된 경우
-    if (document.readyState === "complete" || document.readyState === "interactive") {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
       this.updateElements();
     } else {
       // DOM 로드 대기
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener('DOMContentLoaded', () => {
         this.updateElements();
       });
     }
 
     // 동적으로 추가되는 요소를 위한 MutationObserver 설정
-    if (typeof MutationObserver !== "undefined") {
+    if (typeof MutationObserver !== 'undefined') {
       const observer = new MutationObserver((mutations) => {
         let shouldUpdate = false;
 
         mutations.forEach((mutation) => {
-          if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
             mutation.addedNodes.forEach((node) => {
               if (node.nodeType === Node.ELEMENT_NODE) {
                 const element = node as Element;
-                if (element.getAttribute("data-i18n") || element.querySelector("[data-i18n]")) {
+                if (element.getAttribute('data-i18n') || element.querySelector('[data-i18n]')) {
                   shouldUpdate = true;
                 }
               }

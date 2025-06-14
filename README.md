@@ -13,6 +13,8 @@ Chrome 확장 프로그램을 위한 i18n(국제화) 라이브러리입니다. �
 
 ```
 packages/
+├── shared/       # 공통 타입 및 스크립트
+├── cli/          # CLI 도구
 ├── core/         # 핵심 기능 (프레임워크 독립적)
 ├── react/        # React 컴포넌트 및 훅
 └── vanilla/      # Vanilla JS 지원
@@ -33,19 +35,20 @@ npm install @99mini/i18n-vanilla
 
 ## 개발 환경 설정
 
-개발 환경에서 Chrome Extension의 i18n API 없이 작업하려면 다음 스크립트를 실행하세요:
+```bash
+pnpm install
+```
 
 ```bash
-# 한 번만 실행
-node scripts/build-locales.js
+pnpm run dev:<package-name>
+# ex) pnpm run dev:core
+```
 
-# 파일 변경 감지 모드로 실행
-node scripts/build-locales.js --watch
-
-# 백그라운드 모드로 실행
-node scripts/build-locales.js --watch --background
+```bash
+pnpm run test:<package-name>
+# ex) pnpm run test:core
 ```
 
 ## 라이센스
 
-ISC
+MIT

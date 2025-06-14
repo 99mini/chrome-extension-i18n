@@ -35,22 +35,22 @@
  * node scripts/build-locales.js --watch --background
  * ```
  */
-import chokidar from "chokidar";
-import fs from "fs";
-import path from "path";
+import chokidar from 'chokidar';
+import fs from 'fs';
+import path from 'path';
 
 // 프로젝트 루트 경로
 const rootPath = process.cwd();
 
 // _locales 폴더 경로 (기본값)
-const defaultLocalesPath = path.join(rootPath, "public", "_locales");
+const defaultLocalesPath = path.join(rootPath, 'public', '_locales');
 
 /**
  * i18n.json 파일을 생성하는 함수
  * @param {string} localesPath _locales 폴더 경로
  * @param {string} outputPath 출력 폴더 경로
  */
-function buildLocales(localesPath: string = defaultLocalesPath, outputPath: string = path.join(rootPath, ".i18n")) {
+function buildLocales(localesPath: string = defaultLocalesPath, outputPath: string = path.join(rootPath, '.i18n')) {
   // 결과를 저장할 객체
   const locales: Record<string, Record<string, string>> = {};
 
@@ -68,12 +68,12 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
 
     // 디렉토리인지 확인
     if (fs.statSync(langPath).isDirectory()) {
-      const messagesPath = path.join(langPath, "messages.json");
+      const messagesPath = path.join(langPath, 'messages.json');
 
       // messages.json 파일이 존재하는지 확인
       if (fs.existsSync(messagesPath)) {
         // 파일 읽기
-        const messages = JSON.parse(fs.readFileSync(messagesPath, "utf8"));
+        const messages = JSON.parse(fs.readFileSync(messagesPath, 'utf8'));
 
         // 언어별 메시지 객체 생성
         locales[lang] = {};
@@ -93,23 +93,27 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
   }
 
   // i18n.json 파일 저장
-  fs.writeFileSync(path.join(outputPath, "i18n.json"), JSON.stringify(locales, null, 2), "utf8");
+  fs.writeFileSync(path.join(outputPath, 'i18n.json'), JSON.stringify(locales, null, 2), 'utf8');
 
   const now = new Date();
-  const timeString = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
-  console.log(`✅ [${timeString}] ${path.join(outputPath, "i18n.json")} 파일이 생성되었습니다.`);
+  const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+  console.log(`✅ [${timeString}] ${path.join(outputPath, 'i18n.json')} 파일이 생성되었습니다.`);
 }
 
 export function buildLocalesSync(args: string[]) {
-  const watchMode = args.includes("--watch");
-  const backgroundMode = args.includes("--background");
+  const watchMode = args.includes('--watch');
+  const backgroundMode = args.includes('--background');
 
   // 커스텀 경로 옵션 처리
-  const localesPathIndex = args.indexOf("--locales-path");
-  const localesPath = localesPathIndex !== -1 && args.length > localesPathIndex + 1 ? args[localesPathIndex + 1] : defaultLocalesPath;
+  const localesPathIndex = args.indexOf('--locales-path');
+  const localesPath =
+    localesPathIndex !== -1 && args.length > localesPathIndex + 1 ? args[localesPathIndex + 1] : defaultLocalesPath;
 
-  const outputPathIndex = args.indexOf("--output-path");
-  const outputPath = outputPathIndex !== -1 && args.length > outputPathIndex + 1 ? args[outputPathIndex + 1] : path.join(rootPath, ".i18n");
+  const outputPathIndex = args.indexOf('--output-path');
+  const outputPath =
+    outputPathIndex !== -1 && args.length > outputPathIndex + 1
+      ? args[outputPathIndex + 1]
+      : path.join(rootPath, '.i18n');
 
   // 초기 빌드 실행
   buildLocales(localesPath, outputPath);
@@ -119,7 +123,7 @@ export function buildLocalesSync(args: string[]) {
     console.log(`👀 ${localesPath} 폴더의 messages.json 파일 변경 감지 중...`);
 
     // 모든 messages.json 파일 경로 패턴
-    const messagesPattern = path.join(localesPath, "**", "messages.json");
+    const messagesPattern = path.join(localesPath, '**', 'messages.json');
 
     // chokidar를 사용하여 파일 변경 감지
     const watcher = chokidar.watch(messagesPattern, {
@@ -128,29 +132,29 @@ export function buildLocalesSync(args: string[]) {
     });
 
     // 파일 변경 이벤트 처리
-    watcher.on("change", (filePath) => {
+    watcher.on('change', (filePath) => {
       const relativePath = path.relative(localesPath, filePath);
       console.log(`🔄 ${relativePath} 파일이 변경되었습니다.`);
       buildLocales(localesPath, outputPath);
     });
 
     // 파일 추가 이벤트 처리
-    watcher.on("add", (filePath) => {
+    watcher.on('add', (filePath) => {
       const relativePath = path.relative(localesPath, filePath);
       console.log(`➕ ${relativePath} 파일이 추가되었습니다.`);
       buildLocales(localesPath, outputPath);
     });
 
     // 에러 처리
-    watcher.on("error", (error) => {
-      console.error("❌ 파일 감시 중 오류가 발생했습니다:", error);
+    watcher.on('error', (error) => {
+      console.error('❌ 파일 감시 중 오류가 발생했습니다:', error);
     });
 
     // 백그라운드 모드가 아닌 경우, 프로세스가 종료되지 않도록 유지
     if (!backgroundMode) {
       // 시그널 핸들러 등록
-      process.on("SIGINT", () => {
-        console.log("\n🔔 파일 감시를 종료합니다.");
+      process.on('SIGINT', () => {
+        console.log('\n🔔 파일 감시를 종료합니다.');
         watcher.close().then(() => process.exit(0));
       });
 

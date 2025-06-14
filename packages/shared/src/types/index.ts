@@ -23,10 +23,13 @@ export type LocaleMessages = Record<Language, Messages>;
 export interface ChromeI18nMessage {
   message: string;
   description?: string;
-  placeholders?: Record<string, {
-    content: string;
-    example?: string;
-  }>;
+  placeholders?: Record<
+    string,
+    {
+      content: string;
+      example?: string;
+    }
+  >;
 }
 
 /**

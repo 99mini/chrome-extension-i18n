@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "Chrome Extension i18n library for development and production environments",
   "private": true,
+  "type": "module",
+  "keywords": [
+    "i18n",
+    "chrome-extension",
+    "internationalization",
+    "localization"
+  ],
+  "author": "99mini",
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.1",
   "workspaces": [
     "packages/*"
   ],
@@ -20,6 +30,7 @@
     "dev:vanilla": "turbo run dev --filter @99mini/i18n-vanilla",
     "dev:react": "turbo run dev --filter @99mini/i18n-react",
     "dev:cli": "turbo run dev --filter @99mini/i18n-cli",
+    "format": "turbo run format",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:shared": "turbo run test --filter @99mini/i18n-shared",
@@ -28,20 +39,12 @@
     "test:react": "turbo run test --filter @99mini/i18n-react",
     "test:cli": "turbo run test --filter @99mini/i18n-cli",
     "clean": "turbo run clean && rimraf node_modules",
+    "release": "turbo run release",
     "release:cli": "turbo run release --filter @99mini/i18n-cli",
     "release:core": "turbo run release --filter @99mini/i18n",
     "release:vanilla": "turbo run release --filter @99mini/i18n-vanilla",
     "release:react": "turbo run release --filter @99mini/i18n-react"
   },
-  "keywords": [
-    "i18n",
-    "chrome-extension",
-    "internationalization",
-    "localization"
-  ],
-  "author": "99mini",
-  "license": "ISC",
-  "packageManager": "pnpm@10.12.1",
   "devDependencies": {
     "rimraf": "^6.0.1",
     "chokidar": "^4.0.3",
