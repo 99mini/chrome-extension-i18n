@@ -13,7 +13,9 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "clean": "rimraf dist",
     "lint": "eslint src --ext .ts",
-    "test": "vitest run"
+    "test": "vitest watch",
+    "test:ci": "vitest run",
+    "release": "pnpm run clean && pnpm run build && pnpm run publish"
   },
   "keywords": [
     "i18n",
@@ -24,8 +26,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@99mini/i18n": "workspace:*",
-    "@99mini/i18n-shared": "workspace:*"
+    "@99mini/i18n": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

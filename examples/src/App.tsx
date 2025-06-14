@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
-import ReactLifecycle from './pages/react-lifecyle';
-import Vanilla from './pages/vanilla';
+import ReactLifecycle from './components/react-lifecyle';
+import Vanilla from './components/vanilla';
 
 import './App.css'
 

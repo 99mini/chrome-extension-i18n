@@ -6,20 +6,22 @@
  * i18n-cli build-locales [옵션]
  */
 import { program } from 'commander';
-import { buildLocalesSync } from './index';
+import { buildLocalesSync } from './service';
+
+import pkg from '../package.json';
 
 // CLI 버전 정보
-const version = '1.0.0';
+const version = pkg.version;
 
 // CLI 프로그램 설정
 program
   .name('i18n-cli')
-  .description('Chrome Extension i18n 라이브러리를 위한 CLI 도구')
+  .description(pkg.description)
   .version(version);
 
 // build-locales 명령어 설정
 program
-  .command('build-locales')
+  .command('build')
   .description('public/_locales 폴더를 기준으로 i18n.json 파일을 생성합니다')
   .option('-w, --watch', '파일 변경 감지 모드로 실행')
   .option('-b, --background', '백그라운드 모드로 실행 (비동기적으로 실행하고 종료하지 않음)')

@@ -103,9 +103,7 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
   console.log(`✅ [${timeString}] ${path.join(outputPath, "i18n.json")} 파일이 생성되었습니다.`);
 }
 
-export function buildLocalesSync() {
-  // 명령행 인수 확인
-  const args = process.argv.slice(2);
+export function buildLocalesSync(args: string[]) {
   const watchMode = args.includes("--watch");
   const backgroundMode = args.includes("--background");
 

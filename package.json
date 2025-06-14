@@ -13,6 +13,7 @@
     "build:vanilla": "turbo run build --filter @99mini/i18n-vanilla",
     "build:react": "turbo run build --filter @99mini/i18n-react",
     "build:cli": "turbo run build --filter @99mini/i18n-cli",
+    "i18n": "node packages/cli/dist/bin.js",
     "dev": "turbo run dev",
     "dev:shared": "turbo run dev --filter @99mini/i18n-shared",
     "dev:core": "turbo run dev --filter @99mini/i18n",
@@ -26,7 +27,11 @@
     "test:vanilla": "turbo run test --filter @99mini/i18n-vanilla",
     "test:react": "turbo run test --filter @99mini/i18n-react",
     "test:cli": "turbo run test --filter @99mini/i18n-cli",
-    "clean": "turbo run clean && rimraf node_modules"
+    "clean": "turbo run clean && rimraf node_modules",
+    "release:cli": "turbo run release --filter @99mini/i18n-cli",
+    "release:core": "turbo run release --filter @99mini/i18n",
+    "release:vanilla": "turbo run release --filter @99mini/i18n-vanilla",
+    "release:react": "turbo run release --filter @99mini/i18n-react"
   },
   "keywords": [
     "i18n",
