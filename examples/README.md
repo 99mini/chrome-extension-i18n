@@ -3,17 +3,26 @@
 ## Getting Started
 
 ```bash
-pnpm install
-pnpm run dev
+npm install
+npm run dev
+```
+
+### build watch, background
+
+```bash
+npx @99mini/i18n-cli build -wb && <your-dev-command>
+# ex) npx @99mini/i18n-cli build -wb && vite
 ```
 
 ### i18n build only
 
 ```bash
-pnpm run i18n
+npx @99mini/i18n-cli build
 ```
 
 ## Setting
+
+### tsconfig.json
 
 add .i18n/schema.d.ts to tsconfig.json
 
@@ -25,7 +34,7 @@ add .i18n/schema.d.ts to tsconfig.json
 }
 ```
 
-## .gitignore
+### .gitignore
 
 add .i18n to .gitignore
 
