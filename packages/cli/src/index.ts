@@ -1,59 +1,16 @@
 /**
- * @description
- * public/_locales 폴더를 기준으로 locales를 생성합니다.
- * 로컬 dev 환경에서만 실행합니다.
- * <root>/.i18n/i18n.json 파일을 생성합니다.
- *
- * ### _locales 폴더 구조
- * ```md
- * public/_locales/
- * ├── ko
- * │   └── messages.json
- * └── en
- *     └── messages.json
- * ```
- *
- * ### messages.json 구조
- * ```json
- * {
- *   "key": {
- *     "message": "value",
- *     "description": "description"
- *   }
- * }
- * ```
- *
- * ### 사용법
- * ```bash
- * # 한 번만 실행
- * node scripts/build-locales.js
- *
- * # 파일 변경 감지 모드로 실행
- * node scripts/build-locales.js --watch
- *
- * # 백그라운드 모드로 실행 (비동기적으로 실행하고 종료하지 않음)
- * node scripts/build-locales.js --watch --background
- * ```
+ * Chrome Extension i18n CLI 라이브러리
  */
 import chokidar from "chokidar";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-
-// 프로젝트 루트 경로
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootPath = path.resolve(__dirname, "..");
-
-// _locales 폴더 경로 (기본값)
-const defaultLocalesPath = path.join(rootPath, "public", "_locales");
 
 /**
  * i18n.json 파일을 생성하는 함수
  * @param {string} localesPath _locales 폴더 경로
  * @param {string} outputPath 출력 폴더 경로
  */
-function buildLocales(localesPath: string = defaultLocalesPath, outputPath: string = path.join(rootPath, ".i18n")) {
+function buildLocales(localesPath: string, outputPath: string) {
   // 결과를 저장할 객체
   const locales: Record<string, Record<string, string>> = {};
 
@@ -103,18 +60,32 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
   console.log(`✅ [${timeString}] ${path.join(outputPath, "i18n.json")} 파일이 생성되었습니다.`);
 }
 
-export function buildLocalesSync() {
+/**
+ * i18n.json 파일을 생성하는 함수 (CLI에서 호출)
+ * @param args 명령행 인수 배열
+ */
+export function buildLocalesSync(args?: string[]) {
   // 명령행 인수 확인
-  const args = process.argv.slice(2);
-  const watchMode = args.includes("--watch");
-  const backgroundMode = args.includes("--background");
+  const processArgs = args || process.argv.slice(2);
+  const watchMode = processArgs.includes("--watch");
+  const backgroundMode = processArgs.includes("--background");
+
+  // 프로젝트 루트 경로 (현재 작업 디렉토리 기준)
+  const rootPath = process.cwd();
+
+  // _locales 폴더 경로 (기본값)
+  const defaultLocalesPath = path.join(rootPath, "public", "_locales");
 
   // 커스텀 경로 옵션 처리
-  const localesPathIndex = args.indexOf("--locales-path");
-  const localesPath = localesPathIndex !== -1 && args.length > localesPathIndex + 1 ? args[localesPathIndex + 1] : defaultLocalesPath;
+  const localesPathIndex = processArgs.indexOf("--locales-path");
+  const localesPath = localesPathIndex !== -1 && processArgs.length > localesPathIndex + 1 
+    ? processArgs[localesPathIndex + 1] 
+    : defaultLocalesPath;
 
-  const outputPathIndex = args.indexOf("--output-path");
-  const outputPath = outputPathIndex !== -1 && args.length > outputPathIndex + 1 ? args[outputPathIndex + 1] : path.join(rootPath, ".i18n");
+  const outputPathIndex = processArgs.indexOf("--output-path");
+  const outputPath = outputPathIndex !== -1 && processArgs.length > outputPathIndex + 1 
+    ? processArgs[outputPathIndex + 1] 
+    : path.join(rootPath, ".i18n");
 
   // 초기 빌드 실행
   buildLocales(localesPath, outputPath);
@@ -167,3 +138,5 @@ export function buildLocalesSync() {
     process.exit(0);
   }
 }
+
+export default { buildLocalesSync };
