@@ -1,4 +1,4 @@
-import i18n from "@99mini/i18n-vanilla";
+import i18n from '@99mini/i18n-vanilla';
 
 const Vanilla = () => {
   return (

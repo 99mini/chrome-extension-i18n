@@ -1,21 +1,21 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 Vanilla JS 구현
  */
-import { Language, LocaleMessages, getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
+import { I18n, getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
 
 /**
  * I18n 인스턴스 클래스
  */
 class I18nVanilla {
-  private language: Language;
-  private messages: LocaleMessages = { ko: {}, en: {} };
+  private language: I18n.Language;
+  private messages: Record<I18n.Language, Record<I18n.Key, string>> = { en: { '': '' } };
 
   /**
    * I18n 인스턴스 생성
    * @param initialLanguage 초기 언어 (선택적)
    * @param i18nPath i18n 데이터 경로 (선택적)
    */
-  constructor(initialLanguage?: Language, i18nPath: string = './.i18n/i18n.json') {
+  constructor(initialLanguage?: I18n.Language, i18nPath: string = './.i18n/i18n.json') {
     this.language = initialLanguage || getCurrentLanguage();
 
     // 개발 환경에서 데이터 로드
@@ -39,7 +39,7 @@ class I18nVanilla {
    * 현재 언어 설정
    * @param lang 언어 코드
    */
-  setLanguage(lang: Language): void {
+  setLanguage(lang: I18n.Language): void {
     this.language = lang;
 
     // 언어 변경 이벤트 발생
@@ -57,7 +57,7 @@ class I18nVanilla {
    * 현재 언어 가져오기
    * @returns 현재 언어 코드
    */
-  getLanguage(): Language {
+  getLanguage(): I18n.Language {
     return this.language;
   }
 
@@ -67,7 +67,7 @@ class I18nVanilla {
    * @param substitutions 대체할 문자열 배열 (선택적)
    * @returns 번역된 텍스트
    */
-  t(key: string, substitutions?: string | string[]): string {
+  t(key: I18n.Key, substitutions?: string | string[]): string {
     return translate(key, substitutions);
   }
 
@@ -79,7 +79,7 @@ class I18nVanilla {
     const elements = document.querySelectorAll('[data-i18n]');
 
     elements.forEach((element) => {
-      const key = element.getAttribute('data-i18n');
+      const key = element.getAttribute('data-i18n') as I18n.Key | null;
       if (key) {
         // 대체 문자열 처리
         const substitutions = element.getAttribute('data-i18n-substitutions');
@@ -97,7 +97,7 @@ class I18nVanilla {
    * @param key i18n 키
    * @param substitutions 대체 문자열 (선택적)
    */
-  applyToElement(element: HTMLElement, key: string, substitutions?: string | string[]): void {
+  applyToElement(element: HTMLElement, key: I18n.Key, substitutions?: string | string[]): void {
     if (!element) return;
 
     // 키 속성 설정
@@ -164,7 +164,7 @@ class I18nVanilla {
 const i18n = new I18nVanilla();
 
 // 편의를 위한 전역 함수
-const t = (key: string, substitutions?: string | string[]): string => i18n.t(key, substitutions);
+const t: typeof i18n.t = (key, substitutions) => i18n.t(key, substitutions);
 
 // 코어 기능도 내보내기
 export { translate, getCurrentLanguage, loadI18nData };

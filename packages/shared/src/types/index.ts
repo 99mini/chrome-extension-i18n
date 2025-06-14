@@ -2,10 +2,20 @@
  * i18n 라이브러리에서 사용하는 공통 타입 정의
  */
 
+export namespace I18n {
+  export type Language = 'en';
+  export type Key = '';
+}
+
 /**
  * 지원하는 언어 코드
  */
-export type Language = 'ko' | 'en' | string;
+export type Language = I18n.Language;
+
+/**
+ * 메시지 키워드
+ */
+export type I18nKey = I18n.Key;
 
 /**
  * 메시지 객체 타입

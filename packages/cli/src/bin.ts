@@ -6,8 +6,7 @@
  * i18n-cli build-locales [옵션]
  */
 import pkg from '../package.json';
-import { buildLocalesSync } from './service';
-import { spawn } from 'child_process';
+import { buildAction, buildLocalesAction, compileSchemaAction } from './action';
 import { program } from 'commander';
 
 // CLI 버전 정보
@@ -18,60 +17,32 @@ program.name('i18n-cli').description(pkg.description).version(version);
 
 // build-locales 명령어 설정
 program
+  .command('build-locales')
+  .description('build locales json')
+  .option('-w, --watch', 'watch mode')
+  .option('-b, --background', 'background mode')
+  .option('--locales-path <path>', '_locales path', 'public/_locales')
+  .option('--output-path <path>', 'output path', './.i18n')
+  .action(buildLocalesAction);
+
+program
+  .command('compile-schema')
+  .description('compile .i18n/i18n.json to .i18n/schema.d.ts')
+  .option('-w, --watch', 'watch mode')
+  .option('-b, --background', 'background mode')
+  .option('--base-path <path>', 'base path', './.i18n')
+  .option('--output-path <path>', 'output path', './.i18n')
+  .action(compileSchemaAction);
+
+program
   .command('build')
-  .description('public/_locales 폴더를 기준으로 i18n.json 파일을 생성합니다')
-  .option('-w, --watch', '파일 변경 감지 모드로 실행')
-  .option('-b, --background', '백그라운드 모드로 실행 (비동기적으로 실행하고 종료하지 않음)')
-  .option('--locales-path <path>', '_locales 폴더 경로 지정')
-  .option('--output-path <path>', '출력 폴더 경로 지정')
-  .action((options) => {
-    const args: string[] = [];
-
-    if (options.watch) {
-      args.push('--watch');
-    }
-
-    if (options.localesPath) {
-      args.push('--locales-path', options.localesPath);
-    }
-
-    if (options.outputPath) {
-      args.push('--output-path', options.outputPath);
-    }
-
-    if (options.background) {
-      // 현재 스크립트 경로
-      const scriptPath = __filename;
-
-      // 같은 명령어를 백그라운드 옵션 없이 실행
-      const childArgs = ['build'];
-
-      if (options.watch) {
-        childArgs.push('--watch');
-      }
-
-      if (options.localesPath) {
-        childArgs.push('--locales-path', options.localesPath);
-      }
-
-      if (options.outputPath) {
-        childArgs.push('--output-path', options.outputPath);
-      }
-
-      // 자식 프로세스 실행
-      const child = spawn(process.execPath, [scriptPath, ...childArgs], {
-        detached: true,
-        stdio: 'ignore',
-      });
-
-      // 부모 프로세스와 연결 해제
-      child.unref();
-      return;
-    }
-
-    // buildLocalesSync 함수 실행
-    buildLocalesSync(args);
-  });
+  .description('build locales json and compile schema')
+  .option('-w, --watch', 'watch mode')
+  .option('-b, --background', 'background mode')
+  .option('--locales-path <path>', '_locales path', 'public/_locales')
+  .option('--output-path <path>', 'output path', './.i18n')
+  .option('--base-path <path>', 'base path', './.i18n')
+  .action(buildAction);
 
 // 명령어가 없는 경우 도움말 표시
 program.on('command:*', () => {

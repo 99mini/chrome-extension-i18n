@@ -1,15 +1,13 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 국제화 모듈
  */
+import { I18n } from '@99mini/i18n-shared';
 
-// 현재 브라우저 언어 설정 가져오기 (기본값: ko)
-export let currentLanguage = (navigator.language.split('-')[0] || 'ko') as 'ko' | 'en';
+// 현재 브라우저 언어 설정 가져오기 (기본값: en)
+export let currentLanguage = (navigator.language.split('-')[0] || 'en') as I18n.Language;
 
 // 개발 환경에서 사용할 번역 데이터
-let messages: Record<'ko' | 'en', Record<string, string>> = {
-  ko: {},
-  en: {},
-};
+let messages: Record<I18n.Language, Record<I18n.Key, string>> = { en: { '': '' } };
 
 export const getCurrentLanguage = () => currentLanguage;
 
@@ -34,11 +32,11 @@ export const loadI18nData = async (path: string = './.i18n/i18n.json') => {
 
 /**
  * 국제화된 텍스트 가져오기
- * @param key 키워드
+ * @param key {I18n.Key | string} 키워드
  * @param substitutions 대체할 문자열 배열 (선택적)
  * @returns 번역된 텍스트
  */
-export const t = (key: string, substitutions?: string | string[]): string => {
+export const t = (key: I18n.Key, substitutions?: string | string[]): string => {
   // Chrome Extension의 i18n API가 있는지 확인
   if (chrome?.i18n) {
     return chrome.i18n.getMessage(key, substitutions);
