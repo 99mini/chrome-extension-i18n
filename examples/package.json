@@ -5,19 +5,17 @@
   "type": "module",
   "packageManager": "npm@10.8.1",
   "scripts": {
-    "dev": "i18n-cli build --watch --background && vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "npx ../packages/cli build -wb && vite",
+    "build:i18n": "npx ../packages/cli build"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "@99mini/i18n-core": "file:../packages/core/dist",
-    "@99mini/i18n-vanilla": "file:../packages/vanilla/dist"
+    "@99mini/i18n-core": "file:../packages/core",
+    "@99mini/i18n-vanilla": "file:../packages/vanilla"
   },
   "devDependencies": {
-    "@99mini/i18n-cli": "file:../packages/cli/dist",
+    "@99mini/i18n-cli": "file:../packages/cli",
     "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

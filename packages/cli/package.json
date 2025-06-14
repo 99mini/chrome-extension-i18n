@@ -2,7 +2,7 @@
   "name": "@99mini/i18n-cli",
   "version": "1.0.0",
   "description": "Chrome Extension i18n CLI",
-  "main": "dist/index.js",
+  "main": "dist/bin.js",
   "types": "dist/index.d.ts",
   "bin": {
     "i18n-cli": "./dist/bin.js"
@@ -11,7 +11,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts src/bin.ts --format cjs --dts",
+    "build": "tsup src/index.ts src/bin.ts --format cjs --dts && chmod +x dist/bin.js",
     "dev": "tsup src/index.ts src/bin.ts --format cjs --dts --watch",
     "clean": "rimraf dist",
     "lint": "eslint src/**/*.ts",

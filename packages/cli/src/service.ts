@@ -38,12 +38,9 @@
 import chokidar from "chokidar";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
 // 프로젝트 루트 경로
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootPath = path.resolve(__dirname, "..");
+const rootPath = process.cwd();
 
 // _locales 폴더 경로 (기본값)
 const defaultLocalesPath = path.join(rootPath, "public", "_locales");

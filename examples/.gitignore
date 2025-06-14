@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# i18n
+# add .i18n folder for real project
+# .i18n
+
