@@ -1,8 +1,8 @@
-import { compileSchema } from '../service';
+import { status } from '../service';
 import { actionFn } from '../type';
 import { spawn } from 'child_process';
 
-export const compileSchemaAction: actionFn = (options) => {
+export const statusAction: actionFn = (options) => {
   const args: string[] = [];
 
   if (options.watch) {
@@ -11,7 +11,7 @@ export const compileSchemaAction: actionFn = (options) => {
 
   if (options.background) {
     const scriptPath = __filename;
-    const childArgs = ['compile-schema'];
+    const childArgs = ['status'];
     const child = spawn(process.execPath, [scriptPath, ...childArgs], {
       detached: true,
       stdio: 'ignore',
@@ -20,5 +20,12 @@ export const compileSchemaAction: actionFn = (options) => {
     return;
   }
 
-  compileSchema(args);
+  const missingKeys = status(args);
+
+  if (missingKeys.length === 0) {
+    console.log('No missing keys found');
+    return;
+  }
+
+  console.table(missingKeys, Object.keys(missingKeys[0]));
 };

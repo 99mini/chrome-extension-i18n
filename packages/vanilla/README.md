@@ -9,53 +9,54 @@ React components and hooks for Chrome Extension i18n (internationalization).
 ## Installation
 
 ```bash
-npm install @99mini/i18n-vanilla
+npm install @99mini/i18n-vanilla @99mini/i18n-cli
 # or
-yarn add @99mini/i18n-vanilla
+yarn add @99mini/i18n-vanilla @99mini/i18n-cli
 # or
-pnpm add @99mini/i18n-vanilla
+pnpm add @99mini/i18n-vanilla @99mini/i18n-cli
 ```
 
 ## Features
 
 - React components and hooks for Chrome Extension i18n (internationalization)
+- Vanilla JavaScript implementation for Chrome Extension i18n (internationalization)
+- Simple API for internationalization
+- Easy to use in browser environment
+- DOM element auto translation
+- TypeScript support
 
 ## Usage
 
 ### Basic Usage
 
 ```javascript
-import { I18nProvider, useTranslation } from '@99mini/i18n-vanilla';
+import { createI18n } from '@99mini/i18n-vanilla';
 
-function App() {
-  return (
-    <I18nProvider defaultLocale="en" fallbackLocale="ko">
-      <Greeting />
-    </I18nProvider>
-  );
-}
+// i18n instance creation
+const i18n = createI18n({
+  defaultLocale: 'ko',
+  fallbackLocale: 'en',
+});
 
-function Greeting() {
-  const { t, locale, setLocale } = useTranslation();
+// message translation
+const message = i18n.t('hello_world');
+console.log(message); // Hello, world!
 
-  return (
-    <div>
-      <h1>{t('greeting')}</h1>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        <option value="ko">한국어</option>
-        <option value="en">English</option>
-      </select>
-    </div>
-  );
-}
+// message translation with variables
+const welcomeMessage = i18n.t('welcome', { name: 'John' });
+console.log(welcomeMessage); // Welcome, John!
+
+// change language
+i18n.setLocale('en');
+console.log(i18n.t('hello_world')); // Hello, world!
 ```
 
 ### Event Listener
 
-If Change Locale, you can listen to the event.
+You can receive events when the language changes.
 
 ```javascript
-// Add event listener
+// Language change event listener registration
 i18n.on('localeChanged', (newLocale, oldLocale) => {
   console.log(`Language changed from ${oldLocale} to ${newLocale}`);
 
@@ -69,60 +70,82 @@ function updateUI() {
 }
 ```
 
-### Trans Component
+### DOM Element Auto Translate
+
+You can automatically translate DOM elements using the data-i18n attribute.
+
+```html
+<h1 data-i18n="greeting"></h1>
+<p data-i18n="welcome" data-i18n-params='{"name": "John"}'></p>
+```
 
 ```javascript
-import { Trans } from '@99mini/i18n-vanilla';
+// Auto translate all elements with data-i18n attribute
+i18n.translatePage();
 
-function TermsAndConditions() {
-  return (
-    <div>
-      <Trans
-        id="terms_agree"
-        values={{
-          termsLink: <a href="/terms">Terms of Service</a>,
-          privacyLink: <a href="/privacy">Privacy Policy</a>,
-        }}
-      />
-      {/* 
-      <Trans
-        id="terms_agree"
-        values={{
-          termsLink: <a href="/terms">이용약관</a>,
-          privacyLink: <a href="/privacy">개인정보처리방침</a>,
-        }}
-      />
-      */}
-    </div>
-  );
-}
+// Auto translate all elements with data-i18n attribute when language changes
+i18n.on('localeChanged', () => {
+  i18n.translatePage();
+});
 ```
 
 ## API Documentation
 
-### I18nProvider
+### createI18n(options)
 
-**Props:**
+Creates an i18n instance.
 
-- `defaultLocale`: Default language code (e.g., 'en', 'ko')
-- `fallbackLocale`: Language code to use when a translation is missing
-- `children`: React nodes
+**Parameters:**
 
-### useTranslation()
+- `options`: Configuration options
+  - `defaultLocale`: Default language code (e.g., 'ko', 'en')
+  - `fallbackLocale`: Language code to use when a translation is missing
 
 **Returns:**
 
-- `t`: Translation function `(key: string, params?: object) => string`
-- `locale`: Current language code
-- `setLocale`: Function to change language code `(locale: string) => void`
+- i18n instance
 
-### Trans
+### i18n.t(key, params)
 
-**Props:**
+Returns a translated message for the specified key.
 
-- `id`: Translation key
-- `values`: Variables and JSX elements to insert into the translation message
-- `components`: Components to insert into the translation message (optional)
+**Parameters:**
+
+- `key`: Message key
+- `params`: (optional) Variables to insert into the message
+
+**Returns:**
+
+- Translated message string
+
+### i18n.setLocale(locale)
+
+Changes the current language.
+
+**Parameters:**
+
+- `locale`: Language code to change to
+
+### i18n.getLocale()
+
+Returns the current language code.
+
+**Returns:**
+
+- Current language code string
+
+### i18n.on(event, callback)
+
+Registers an event listener.
+
+**Parameters:**
+
+- `event`: Event name (e.g., 'localeChanged')
+- `callback`: Callback function to be called when the event occurs
+
+### i18n.translatePage()
+
+Translates all elements with the data-i18n attribute on the page.
 
 ## License
 
@@ -149,6 +172,7 @@ pnpm add @99mini/i18n-vanilla
 - 프레임워크에 의존하지 않는 순수 자바스크립트 i18n 구현
 - 간단한 API로 국제화 기능 제공
 - 브라우저 환경에서 쉽게 사용 가능
+- DOM 요소 자동 번역 기능
 - 타입스크립트 지원
 
 ## 사용법

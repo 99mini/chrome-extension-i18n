@@ -53,7 +53,7 @@ export {}`;
  *
  * ```
  */
-export function complieSchema(args: string[]) {
+export function compileSchema(args: string[]) {
   const basePath = args.find((arg) => arg === '--base-path' || arg === '-b') || './.i18n';
   const outputPath = args.find((arg) => arg === '--output-path' || arg === '-o') || './.i18n';
 

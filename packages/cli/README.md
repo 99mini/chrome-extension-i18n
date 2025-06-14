@@ -39,35 +39,36 @@ i18n-cli --version
 # Initialize project
 i18n-cli init
 
-# Extract translation files
-i18n-cli extract
+# build locales
+i18n-cli build-locales
 
-# Check translation status
-i18n-cli status
+# compile schema
+i18n-cli compile-schema
+
+# build locales and compile schema
+i18n-cli build
 ```
 
-### Extract Translation Keys
-
-Extracts translation keys from source code and adds them to translation files.
-
-```bash
-i18n-cli extract --src ./src --out ./public/_locales
-```
-
-### Watch Translation Files
+### Watch
 
 Watches for source code changes and automatically updates translation files.
 
 ```bash
-i18n-cli watch --src ./src --out ./public/_locales
+npx @99mini/i18n-cli build-locales -w
+# or
+npx @99mini/i18n-cli compile-schema -w
+# or
+npx @99mini/i18n-cli build -w
 ```
 
-### Check Translation Status
-
-Checks the status of translation files and displays missing translations.
+### background
 
 ```bash
-i18n-cli status --locales ./public/_locales
+npx @99mini/i18n-cli build-locales -b
+# or
+npx @99mini/i18n-cli compile-schema -b
+# or
+npx @99mini/i18n-cli build -b
 ```
 
 ## Configuration
@@ -140,35 +141,32 @@ i18n-cli --version
 # 프로젝트 초기화
 i18n-cli init
 
-# 번역 파일 추출
-i18n-cli extract
+# 국제화 json 파일 생성
+i18n-cli build-locales
 
-# 번역 파일 상태 확인
-i18n-cli status
+# schema 파일 생성
+i18n-cli compile-schema
+
+# build locales and compile schema
+i18n-cli build
 ```
 
-### 번역 키 추출
-
-소스 코드에서 번역 키를 추출하여 번역 파일에 추가합니다.
-
-```bash
-i18n-cli extract --src ./src --out ./public/_locales
-```
-
-### 번역 파일 감시
+### watch
 
 소스 코드 변경을 감시하고 번역 파일을 자동으로 업데이트합니다.
 
 ```bash
-i18n-cli watch --src ./src --out ./public/_locales
+npx @99mini/i18n-cli build-locales -w
+npx @99mini/i18n-cli compile-schema -w
+npx @99mini/i18n-cli build -w
 ```
 
-### 번역 상태 확인
-
-번역 파일의 상태를 확인하고 누락된 번역을 표시합니다.
+### background
 
 ```bash
-i18n-cli status --locales ./public/_locales
+npx @99mini/i18n-cli build-locales -b
+npx @99mini/i18n-cli compile-schema -b
+npx @99mini/i18n-cli build -b
 ```
 
 ## 설정

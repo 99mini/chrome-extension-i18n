@@ -1,4 +1,4 @@
-import { buildLocalesSync } from '../service/service';
+import { buildLocalesSync } from '../service';
 import { actionFn } from '../type';
 import { spawn } from 'child_process';
 
