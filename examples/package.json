@@ -12,6 +12,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "@99mini/i18n-core": "file:../packages/core",
+    "@99mini/i18n-react": "file:../packages/react",
     "@99mini/i18n-vanilla": "file:../packages/vanilla"
   },
   "devDependencies": {
