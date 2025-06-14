@@ -1,0 +1,32 @@
+{
+  "name": "@99mini/i18n-vanilla",
+  "version": "1.0.0",
+  "description": "Vanilla JS implementation for Chrome Extension i18n library",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "i18n",
+    "chrome-extension",
+    "internationalization",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@99mini/i18n-core": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

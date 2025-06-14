@@ -1,0 +1,59 @@
+1. 한국말로 대답하라
+
+이 프로젝트는 chrome extension으로 현재 웹 페이지에서 video를 찾고, 다운로드할 수 있는 기능을 구현할 것이다.
+
+2. 개발 스택
+
+- chrome extension
+  - manifest version: 3
+- typescript
+- vite
+- react
+- emotion
+
+3. 폴더 구조
+
+a. 파일이름은 소문자 + 케밥케이스로 작성한다.
+b. 타입을 수정할 때는 lib/types 폴더에 있는 파일을 수정한다.
+c. utils 폴더에 있는 파일은 테스트 파일이 포함되어 있다.
+d. components 폴더에 있는 파일은 emotion style을 하고 <some-component>.style.tsx 사용한다.
+e. style.tsx 파일은 `const S = {<SomeComponent>: styled.div``, ...}; export default S` 형태로 작성한다.
+
+```
+- lib
+  - constants
+  - utils
+    - <some-fn>.ts
+    - <some-fn>.spec.ts
+    - index.ts
+  - types
+    - <some-type>.type.ts
+    - index.ts
+  - mock
+    - chrome.ts
+    - chrome.spec.ts
+- components
+  - <some-component>.tsx
+  - <some-component>.style.ts
+  - index.ts
+- hooks
+  - <some-hook>.hook.ts
+  - <some-hook>.hook.spec.ts
+  - index.ts
+- App.tsx
+- main.tsx
+```
+
+4. 문서화
+
+- TSDOC을 사용하여 문서화한다. (/** */)
+- 문서는 한국어로 작성한다.
+
+5. 국제화
+
+- public/_locales 폴더에 있는 파일을 사용한다.
+- 모든 UI에 표시되는 텍스트는 국제화된 텍스트를 사용한다.
+
+6. 코드 스타일
+
+- lint, prettier에 의한 오류는 수정하지 않는다.
