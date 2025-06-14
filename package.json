@@ -8,9 +8,21 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:shared": "turbo run build --filter @99mini/i18n-shared",
+    "build:core": "turbo run build --filter @99mini/i18n",
+    "build:vanilla": "turbo run build --filter @99mini/i18n-vanilla",
+    "build:react": "turbo run build --filter @99mini/i18n-react",
     "dev": "turbo run dev",
+    "dev:shared": "turbo run dev --filter @99mini/i18n-shared",
+    "dev:core": "turbo run dev --filter @99mini/i18n",
+    "dev:vanilla": "turbo run dev --filter @99mini/i18n-vanilla",
+    "dev:react": "turbo run dev --filter @99mini/i18n-react",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "test:shared": "turbo run test --filter @99mini/i18n-shared",
+    "test:core": "turbo run test --filter @99mini/i18n",
+    "test:vanilla": "turbo run test --filter @99mini/i18n-vanilla",
+    "test:react": "turbo run test --filter @99mini/i18n-react",
     "clean": "turbo run clean && rimraf node_modules"
   },
   "keywords": [
@@ -24,6 +36,7 @@
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
     "rimraf": "^6.0.1",
+    "chokidar": "^4.0.3",
     "vite": "^6.3.5",
     "vitest": "^3.2.2",
     "tsup": "^8.0.1",

@@ -1,7 +1,8 @@
 {
-  "name": "@99mini/i18n",
+  "name": "@99mini/i18n-shared",
   "version": "1.0.0",
-  "description": "Core functionality for Chrome Extension i18n library",
+  "private": true,
+  "description": "Shared types and scripts for i18n packages",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -12,7 +13,7 @@
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "clean": "rimraf dist",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "eslint src --ext .ts",
     "test": "vitest run"
   },
   "keywords": [
@@ -21,11 +22,5 @@
     "internationalization"
   ],
   "author": "99mini",
-  "license": "ISC",
-  "dependencies": {
-    "@99mini/i18n-shared": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+  "license": "ISC"
 }

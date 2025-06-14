@@ -45,7 +45,7 @@ export const I18nProvider = ({ children, initialLanguage, i18nPath = "./.i18n/i1
 
   // t 함수 래핑 (현재 언어 적용)
   const t = (key: string, substitutions?: string | string[]): string => {
-    return translate(key, substitutions, language);
+    return translate(key, substitutions);
   };
 
   // 컨텍스트 값

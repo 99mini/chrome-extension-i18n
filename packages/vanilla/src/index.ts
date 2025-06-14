@@ -1,7 +1,7 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 Vanilla JS 구현
  */
-import i18nCore, { t as translate, getCurrentLanguage, loadI18nData, Language, LocaleMessages } from "@99mini/i18n";
+import { t as translate, getCurrentLanguage, loadI18nData, Language, LocaleMessages } from "@99mini/i18n";
 
 /**
  * I18n 인스턴스 클래스
@@ -68,7 +68,7 @@ class I18nVanilla {
    * @returns 번역된 텍스트
    */
   t(key: string, substitutions?: string | string[]): string {
-    return translate(key, substitutions, this.language);
+    return translate(key, substitutions);
   }
 
   /**
@@ -166,7 +166,6 @@ const t = (key: string, substitutions?: string | string[]): string => i18n.t(key
 // 코어 기능도 내보내기
 export { translate, getCurrentLanguage, loadI18nData };
 
-// 기본 내보내기
 export default {
   i18n,
   t,

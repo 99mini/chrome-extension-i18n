@@ -54,9 +54,9 @@ const defaultLocalesPath = path.join(rootPath, "public", "_locales");
  * @param {string} localesPath _locales 폴더 경로
  * @param {string} outputPath 출력 폴더 경로
  */
-function buildLocales(localesPath = defaultLocalesPath, outputPath = path.join(rootPath, ".i18n")) {
+function buildLocales(localesPath: string = defaultLocalesPath, outputPath: string = path.join(rootPath, ".i18n")) {
   // 결과를 저장할 객체
-  const locales = {};
+  const locales: Record<string, Record<string, string>> = {};
 
   // _locales 폴더가 존재하는지 확인
   if (!fs.existsSync(localesPath)) {
@@ -104,65 +104,67 @@ function buildLocales(localesPath = defaultLocalesPath, outputPath = path.join(r
   console.log(`✅ [${timeString}] ${path.join(outputPath, "i18n.json")} 파일이 생성되었습니다.`);
 }
 
-// 명령행 인수 확인
-const args = process.argv.slice(2);
-const watchMode = args.includes("--watch");
-const backgroundMode = args.includes("--background");
+export function buildLocalesSync() {
+  // 명령행 인수 확인
+  const args = process.argv.slice(2);
+  const watchMode = args.includes("--watch");
+  const backgroundMode = args.includes("--background");
 
-// 커스텀 경로 옵션 처리
-const localesPathIndex = args.indexOf("--locales-path");
-const localesPath = localesPathIndex !== -1 && args.length > localesPathIndex + 1 ? args[localesPathIndex + 1] : defaultLocalesPath;
+  // 커스텀 경로 옵션 처리
+  const localesPathIndex = args.indexOf("--locales-path");
+  const localesPath = localesPathIndex !== -1 && args.length > localesPathIndex + 1 ? args[localesPathIndex + 1] : defaultLocalesPath;
 
-const outputPathIndex = args.indexOf("--output-path");
-const outputPath = outputPathIndex !== -1 && args.length > outputPathIndex + 1 ? args[outputPathIndex + 1] : path.join(rootPath, ".i18n");
+  const outputPathIndex = args.indexOf("--output-path");
+  const outputPath = outputPathIndex !== -1 && args.length > outputPathIndex + 1 ? args[outputPathIndex + 1] : path.join(rootPath, ".i18n");
 
-// 초기 빌드 실행
-buildLocales(localesPath, outputPath);
+  // 초기 빌드 실행
+  buildLocales(localesPath, outputPath);
 
-// watch 모드인 경우 파일 변경 감지
-if (watchMode) {
-  console.log(`👀 ${localesPath} 폴더의 messages.json 파일 변경 감지 중...`);
+  // watch 모드인 경우 파일 변경 감지
+  if (watchMode) {
+    console.log(`👀 ${localesPath} 폴더의 messages.json 파일 변경 감지 중...`);
 
-  // 모든 messages.json 파일 경로 패턴
-  const messagesPattern = path.join(localesPath, "**", "messages.json");
+    // 모든 messages.json 파일 경로 패턴
+    const messagesPattern = path.join(localesPath, "**", "messages.json");
 
-  // chokidar를 사용하여 파일 변경 감지
-  const watcher = chokidar.watch(messagesPattern, {
-    persistent: true,
-    ignoreInitial: true,
-  });
-
-  // 파일 변경 이벤트 처리
-  watcher.on("change", (filePath) => {
-    const relativePath = path.relative(localesPath, filePath);
-    console.log(`🔄 ${relativePath} 파일이 변경되었습니다.`);
-    buildLocales(localesPath, outputPath);
-  });
-
-  // 파일 추가 이벤트 처리
-  watcher.on("add", (filePath) => {
-    const relativePath = path.relative(localesPath, filePath);
-    console.log(`➕ ${relativePath} 파일이 추가되었습니다.`);
-    buildLocales(localesPath, outputPath);
-  });
-
-  // 에러 처리
-  watcher.on("error", (error) => {
-    console.error("❌ 파일 감시 중 오류가 발생했습니다:", error);
-  });
-
-  // 백그라운드 모드가 아닌 경우, 프로세스가 종료되지 않도록 유지
-  if (!backgroundMode) {
-    // 시그널 핸들러 등록
-    process.on("SIGINT", () => {
-      console.log("\n🔔 파일 감시를 종료합니다.");
-      watcher.close().then(() => process.exit(0));
+    // chokidar를 사용하여 파일 변경 감지
+    const watcher = chokidar.watch(messagesPattern, {
+      persistent: true,
+      ignoreInitial: true,
     });
 
-    // 무한 대기
-    setInterval(() => {}, 1000);
+    // 파일 변경 이벤트 처리
+    watcher.on("change", (filePath) => {
+      const relativePath = path.relative(localesPath, filePath);
+      console.log(`🔄 ${relativePath} 파일이 변경되었습니다.`);
+      buildLocales(localesPath, outputPath);
+    });
+
+    // 파일 추가 이벤트 처리
+    watcher.on("add", (filePath) => {
+      const relativePath = path.relative(localesPath, filePath);
+      console.log(`➕ ${relativePath} 파일이 추가되었습니다.`);
+      buildLocales(localesPath, outputPath);
+    });
+
+    // 에러 처리
+    watcher.on("error", (error) => {
+      console.error("❌ 파일 감시 중 오류가 발생했습니다:", error);
+    });
+
+    // 백그라운드 모드가 아닌 경우, 프로세스가 종료되지 않도록 유지
+    if (!backgroundMode) {
+      // 시그널 핸들러 등록
+      process.on("SIGINT", () => {
+        console.log("\n🔔 파일 감시를 종료합니다.");
+        watcher.close().then(() => process.exit(0));
+      });
+
+      // 무한 대기
+      setInterval(() => {}, 1000);
+    }
+  } else {
+    // watch 모드가 아닌 경우 프로세스 종료
+    process.exit(0);
   }
-} else {
-  // watch 모드가 아닌 경우 프로세스 종료
-  process.exit(0);
 }

@@ -24,7 +24,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@99mini/i18n-core": "workspace:*"
+    "@99mini/i18n": "workspace:*",
+    "@99mini/i18n-shared": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

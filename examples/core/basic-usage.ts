@@ -1,5 +1,5 @@
 /**
- * @99mini/i18n-core 기본 사용법 예제
+ * @99mini/i18n 기본 사용법 예제
  */
 import { t, getCurrentLanguage, loadI18nData } from "@99mini/i18n";
 

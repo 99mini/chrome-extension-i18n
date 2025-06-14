@@ -24,7 +24,8 @@
   "author": "99mini",
   "license": "ISC",
   "dependencies": {
-    "@99mini/i18n-core": "workspace:*"
+    "@99mini/i18n": "workspace:*",
+    "@99mini/i18n-shared": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
