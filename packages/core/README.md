@@ -1,3 +1,7 @@
+[English](#99minii18n) | [한국어](#99minii18n-한국어)
+
+---
+
 # @99mini/i18n
 
 ## Overview
@@ -48,11 +52,13 @@ console.log(welcomeMessage); // Welcome, John!
 Initializes the i18n functionality.
 
 **Parameters:**
+
 - `options`: Configuration options
   - `defaultLocale`: Default language code (e.g., 'en', 'ko')
   - `fallbackLocale`: Language code to use when a translation is missing
 
 **Returns:**
+
 - i18n instance
 
 ### t(key, params)
@@ -60,10 +66,12 @@ Initializes the i18n functionality.
 Returns a translated message for the specified key.
 
 **Parameters:**
+
 - `key`: Message key
 - `params`: (optional) Variables to insert into the message
 
 **Returns:**
+
 - Translated message string
 
 ## License
@@ -122,11 +130,13 @@ console.log(welcomeMessage); // 환영합니다, 홍길동님!
 i18n 기능을 초기화합니다.
 
 **매개변수:**
+
 - `options`: 설정 옵션
   - `defaultLocale`: 기본 언어 코드 (예: 'ko', 'en')
   - `fallbackLocale`: 번역이 없을 경우 사용할 언어 코드
 
 **반환값:**
+
 - i18n 인스턴스
 
 ### t(key, params)
@@ -134,10 +144,12 @@ i18n 기능을 초기화합니다.
 지정된 키에 해당하는 번역된 메시지를 반환합니다.
 
 **매개변수:**
+
 - `key`: 메시지 키
 - `params`: (선택사항) 메시지에 삽입할 변수들
 
 **반환값:**
+
 - 번역된 메시지 문자열
 
 ## 라이센스

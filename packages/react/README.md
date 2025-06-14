@@ -1,3 +1,7 @@
+[English](#99minii18n-react) | [한국어](#99minii18n-react-한국어)
+
+---
+
 # @99mini/i18n-react
 
 ## Overview
@@ -48,12 +52,12 @@ import { useTranslation } from '@99mini/i18n-react';
 
 function Greeting() {
   const { t, locale, setLocale } = useTranslation();
-  
+
   return (
     <div>
       <h1>{t('greeting')}</h1>
       <p>{t('welcome_message', { name: 'John' })}</p>
-      
+
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         <option value="ko">한국어</option>
         <option value="en">English</option>
@@ -74,11 +78,11 @@ import { Trans } from '@99mini/i18n-react';
 function TermsAndConditions() {
   return (
     <div>
-      <Trans 
-        id="terms_agree" 
-        values={{ 
+      <Trans
+        id="terms_agree"
+        values={{
           termsLink: <a href="/terms">Terms of Service</a>,
-          privacyLink: <a href="/privacy">Privacy Policy</a>
+          privacyLink: <a href="/privacy">Privacy Policy</a>,
         }}
       />
       {/* 
@@ -95,6 +99,7 @@ function TermsAndConditions() {
 ### I18nProvider
 
 **Props:**
+
 - `defaultLocale`: Default language code (e.g., 'en', 'ko')
 - `fallbackLocale`: Language code to use when a translation is missing
 - `children`: React nodes
@@ -102,6 +107,7 @@ function TermsAndConditions() {
 ### useTranslation()
 
 **Returns:**
+
 - `t`: Translation function `(key: string, params?: object) => string`
 - `locale`: Current language code
 - `setLocale`: Function to change language code `(locale: string) => void`
@@ -110,6 +116,7 @@ function TermsAndConditions() {
 ### Trans
 
 **Props:**
+
 - `id`: Translation key
 - `values`: Variables and JSX elements to insert into the translation message
 - `components`: Components to insert into the translation message (optional)
@@ -170,12 +177,12 @@ import { useTranslation } from '@99mini/i18n-react';
 
 function Greeting() {
   const { t, locale, setLocale } = useTranslation();
-  
+
   return (
     <div>
       <h1>{t('greeting')}</h1>
       <p>{t('welcome_message', { name: '홍길동' })}</p>
-      
+
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         <option value="ko">한국어</option>
         <option value="en">English</option>
@@ -196,11 +203,11 @@ import { Trans } from '@99mini/i18n-react';
 function TermsAndConditions() {
   return (
     <div>
-      <Trans 
-        id="terms_agree" 
-        values={{ 
+      <Trans
+        id="terms_agree"
+        values={{
           termsLink: <a href="/terms">이용약관</a>,
-          privacyLink: <a href="/privacy">개인정보처리방침</a>
+          privacyLink: <a href="/privacy">개인정보처리방침</a>,
         }}
       />
       {/* 
@@ -217,6 +224,7 @@ function TermsAndConditions() {
 ### I18nProvider
 
 **Props:**
+
 - `defaultLocale`: 기본 언어 코드 (예: 'ko', 'en')
 - `fallbackLocale`: 번역이 없을 경우 사용할 언어 코드
 - `children`: React 노드
@@ -224,6 +232,7 @@ function TermsAndConditions() {
 ### useTranslation()
 
 **반환값:**
+
 - `t`: 번역 함수 `(key: string, params?: object) => string`
 - `locale`: 현재 언어 코드
 - `setLocale`: 언어 코드 변경 함수 `(locale: string) => void`
@@ -232,6 +241,7 @@ function TermsAndConditions() {
 ### Trans
 
 **Props:**
+
 - `id`: 번역 키
 - `values`: 번역 메시지에 삽입할 변수 및 JSX 요소
 - `components`: 번역 메시지에 삽입할 컴포넌트 (선택사항)

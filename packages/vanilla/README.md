@@ -1,4 +1,136 @@
+[English](#99minii18n-vanilla) | [한국어](#99minii18n-vanilla-한국어)
+
+---
+
 # @99mini/i18n-vanilla
+
+React components and hooks for Chrome Extension i18n (internationalization).
+
+## Installation
+
+```bash
+npm install @99mini/i18n-vanilla
+# or
+yarn add @99mini/i18n-vanilla
+# or
+pnpm add @99mini/i18n-vanilla
+```
+
+## Features
+
+- React components and hooks for Chrome Extension i18n (internationalization)
+
+## Usage
+
+### Basic Usage
+
+```javascript
+import { I18nProvider, useTranslation } from '@99mini/i18n-vanilla';
+
+function App() {
+  return (
+    <I18nProvider defaultLocale="en" fallbackLocale="ko">
+      <Greeting />
+    </I18nProvider>
+  );
+}
+
+function Greeting() {
+  const { t, locale, setLocale } = useTranslation();
+
+  return (
+    <div>
+      <h1>{t('greeting')}</h1>
+      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+  );
+}
+```
+
+### Event Listener
+
+If Change Locale, you can listen to the event.
+
+```javascript
+// Add event listener
+i18n.on('localeChanged', (newLocale, oldLocale) => {
+  console.log(`Language changed from ${oldLocale} to ${newLocale}`);
+
+  // Update UI
+  updateUI();
+});
+
+function updateUI() {
+  document.getElementById('greeting').textContent = i18n.t('greeting');
+  document.getElementById('welcome').textContent = i18n.t('welcome', { name: 'John' });
+}
+```
+
+### Trans Component
+
+```javascript
+import { Trans } from '@99mini/i18n-vanilla';
+
+function TermsAndConditions() {
+  return (
+    <div>
+      <Trans
+        id="terms_agree"
+        values={{
+          termsLink: <a href="/terms">Terms of Service</a>,
+          privacyLink: <a href="/privacy">Privacy Policy</a>,
+        }}
+      />
+      {/* 
+      <Trans
+        id="terms_agree"
+        values={{
+          termsLink: <a href="/terms">이용약관</a>,
+          privacyLink: <a href="/privacy">개인정보처리방침</a>,
+        }}
+      />
+      */}
+    </div>
+  );
+}
+```
+
+## API Documentation
+
+### I18nProvider
+
+**Props:**
+
+- `defaultLocale`: Default language code (e.g., 'en', 'ko')
+- `fallbackLocale`: Language code to use when a translation is missing
+- `children`: React nodes
+
+### useTranslation()
+
+**Returns:**
+
+- `t`: Translation function `(key: string, params?: object) => string`
+- `locale`: Current language code
+- `setLocale`: Function to change language code `(locale: string) => void`
+
+### Trans
+
+**Props:**
+
+- `id`: Translation key
+- `values`: Variables and JSX elements to insert into the translation message
+- `components`: Components to insert into the translation message (optional)
+
+## License
+
+MIT
+
+---
+
+# @99mini/i18n-vanilla (한국어)
 
 Chrome Extension 국제화(i18n)를 위한 바닐라 자바스크립트 구현체입니다.
 
@@ -29,7 +161,7 @@ import { createI18n } from '@99mini/i18n-vanilla';
 // i18n 인스턴스 생성
 const i18n = createI18n({
   defaultLocale: 'ko',
-  fallbackLocale: 'en'
+  fallbackLocale: 'en',
 });
 
 // 메시지 번역
@@ -53,7 +185,7 @@ console.log(i18n.t('hello_world')); // Hello, world!
 // 언어 변경 이벤트 리스너 등록
 i18n.on('localeChanged', (newLocale, oldLocale) => {
   console.log(`언어가 ${oldLocale}에서 ${newLocale}로 변경되었습니다.`);
-  
+
   // UI 업데이트 등의 작업 수행
   updateUI();
 });
@@ -90,11 +222,13 @@ i18n.on('localeChanged', () => {
 i18n 인스턴스를 생성합니다.
 
 **매개변수:**
+
 - `options`: 설정 옵션
   - `defaultLocale`: 기본 언어 코드 (예: 'ko', 'en')
   - `fallbackLocale`: 번역이 없을 경우 사용할 언어 코드
 
 **반환값:**
+
 - i18n 인스턴스
 
 ### i18n.t(key, params)
@@ -102,10 +236,12 @@ i18n 인스턴스를 생성합니다.
 지정된 키에 해당하는 번역된 메시지를 반환합니다.
 
 **매개변수:**
+
 - `key`: 메시지 키
 - `params`: (선택사항) 메시지에 삽입할 변수들
 
 **반환값:**
+
 - 번역된 메시지 문자열
 
 ### i18n.setLocale(locale)
@@ -113,6 +249,7 @@ i18n 인스턴스를 생성합니다.
 현재 언어를 변경합니다.
 
 **매개변수:**
+
 - `locale`: 변경할 언어 코드
 
 ### i18n.getLocale()
@@ -120,6 +257,7 @@ i18n 인스턴스를 생성합니다.
 현재 언어 코드를 반환합니다.
 
 **반환값:**
+
 - 현재 언어 코드 문자열
 
 ### i18n.on(event, callback)
@@ -127,6 +265,7 @@ i18n 인스턴스를 생성합니다.
 이벤트 리스너를 등록합니다.
 
 **매개변수:**
+
 - `event`: 이벤트 이름 (예: 'localeChanged')
 - `callback`: 이벤트 발생 시 호출될 콜백 함수
 

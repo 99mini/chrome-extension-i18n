@@ -1,4 +1,4 @@
-[English](#@99mini-i18n-cli) | [한국어](#@99mini-i18n-cli-한국어)
+[English](#99minii18n-cli) | [한국어](#99minii18n-cli-한국어)
 
 ---
 
