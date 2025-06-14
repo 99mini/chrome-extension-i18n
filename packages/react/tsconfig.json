@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/env.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/env.d.ts", "../../type.d.ts"],
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2023"],

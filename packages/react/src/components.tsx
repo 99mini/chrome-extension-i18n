@@ -3,7 +3,7 @@ import React from 'react';
 import { useI18n } from './hooks';
 
 interface TransProps {
-  keyword: string;
+  keyword: I18n.Key;
   substitutions?: string | string[];
 }
 
