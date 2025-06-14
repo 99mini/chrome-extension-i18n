@@ -16,6 +16,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "homepage": "https://github.com/99mini/chrome-extension-i18n",
   "scripts": {
     "build": "turbo run build",
     "build:shared": "turbo run build --filter @99mini/i18n-shared",
@@ -39,7 +40,6 @@
     "test:react": "turbo run test --filter @99mini/i18n-react",
     "test:cli": "turbo run test --filter @99mini/i18n-cli",
     "clean": "turbo run clean && rimraf node_modules",
-    "release": "turbo run release",
     "release:cli": "turbo run release --filter @99mini/i18n-cli",
     "release:core": "turbo run release --filter @99mini/i18n",
     "release:vanilla": "turbo run release --filter @99mini/i18n-vanilla",
