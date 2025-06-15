@@ -2,6 +2,7 @@
   "name": "@99mini/i18n-react",
   "version": "1.0.0",
   "description": "React components and hooks for Chrome Extension i18n library",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -9,6 +10,17 @@
     "dist",
     "README.md"
   ],
+  "keywords": [
+    "i18n",
+    "chrome-extension",
+    "internationalization",
+    "react"
+  ],
+  "author": "99mini",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup --config tsup.config.ts",
     "dev": "tsup --config tsup.config.ts --watch",
@@ -19,26 +31,17 @@
     "test:watch": "echo 'vitest watch'",
     "release": "pnpm run clean && pnpm run build && pnpm publish --no-git-checks --access public"
   },
-  "keywords": [
-    "i18n",
-    "chrome-extension",
-    "internationalization",
-    "react"
-  ],
-  "author": "99mini",
-  "license": "MIT",
   "dependencies": {
-    "@99mini/i18n": "workspace:*",
-    "@99mini/i18n-shared": "workspace:*"
+    "@99mini/i18n": "workspace:*"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.8",
-    "react": "^19.1.0"
-  },
-  "publishConfig": {
-    "access": "public"
+    "react": "^19.1.0",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "@99mini/i18n-shared": "workspace:*"
   }
 }

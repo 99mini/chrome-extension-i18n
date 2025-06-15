@@ -8,8 +8,7 @@
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
     "^react",
-    "^react-dom",
-    "^@emotion",
+    "^@99mini",
     "^@/provider?(s)/(.*)$",
     "^@/component?(s)/(.*)$",
     "^@/hook?(s)/(.*)$",
@@ -18,8 +17,9 @@
     "^@/lib/util?(s)/(.*)$",
     "^@/lib/mock?(s)/(.*)$",
     "^@/lib/constant?(s)/(.*)$",
-    "^@/lib/i18n/(.*)$",
-    "^[./]*.(?!style$)"
+    "^./",
+    "^../",
+    "^../../"
   ],
   "importOrderParserPlugins": ["typescript", "jsx"],
   "importOrderSeparation": true,

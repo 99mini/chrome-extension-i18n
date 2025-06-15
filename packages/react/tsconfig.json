@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/env.d.ts", "../../type.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/env.d.ts", "../../type.d.ts", "eslint.config.js"],
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2023"],
@@ -10,8 +10,10 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
+    "rootDir": ".",
+    "outDir": "./dist",
+    "baseUrl": ".",
     "paths": {
-      "@99mini/i18n": ["../core/src/index.ts"],
       "react": ["../../node_modules/react"],
       "react-dom": ["../../node_modules/react-dom"],
       "@types/react": ["../../node_modules/@types/react"],

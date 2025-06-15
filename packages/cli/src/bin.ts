@@ -5,9 +5,11 @@
  * 사용법:
  * i18n-cli build-locales [옵션]
  */
-import pkg from '../package.json';
-import { buildAction, buildLocalesAction, compileSchemaAction, initAction, statusAction } from './command';
 import { program } from 'commander';
+
+import { buildAction, buildLocalesAction, compileSchemaAction, initAction, statusAction } from './command';
+
+import pkg from '../package.json';
 
 // CLI 버전 정보
 const version = pkg.version;

@@ -1,6 +1,8 @@
-import { actionFn } from '../../type';
-import { status } from './service';
 import { spawn } from 'child_process';
+
+import { status } from './service';
+
+import { actionFn } from '../../type';
 
 export const statusAction: actionFn = (options) => {
   const args: string[] = [];

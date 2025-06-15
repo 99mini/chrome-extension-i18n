@@ -2,7 +2,10 @@
   "name": "@99mini/i18n-shared",
   "version": "1.0.0",
   "private": true,
-  "description": "Shared types and scripts for i18n packages",
+  "description": "Shared types and scripts for i18n packages (internal use)",
+  "author": "99mini",
+  "license": "MIT",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -19,12 +22,5 @@
     "test": "echo 'vitest run'",
     "test:watch": "echo 'vitest watch'",
     "release": "echo 'not publish shared package'"
-  },
-  "keywords": [
-    "i18n",
-    "chrome-extension",
-    "internationalization"
-  ],
-  "author": "99mini",
-  "license": "MIT"
+  }
 }

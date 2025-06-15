@@ -1,5 +1,6 @@
-import { actionFn } from '../../type';
 import { initProject } from './service';
+
+import { actionFn } from '../../type';
 
 /**
  * i18n-cli init 명령어 처리 함수

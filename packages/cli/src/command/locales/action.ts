@@ -1,6 +1,8 @@
-import { actionFn } from '../../type';
-import { buildLocalesSync } from './service';
 import { spawn } from 'child_process';
+
+import { buildLocalesSync } from './service';
+
+import { actionFn } from '../../type';
 
 export const buildLocalesAction: actionFn = (options) => {
   const args: string[] = [];

@@ -1,6 +1,8 @@
-import { actionFn } from '../../type';
-import { compileSchema } from './service';
 import { spawn } from 'child_process';
+
+import { compileSchema } from './service';
+
+import { actionFn } from '../../type';
 
 export const compileSchemaAction: actionFn = (options) => {
   const args: string[] = [];
