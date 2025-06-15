@@ -47,6 +47,9 @@ i18n-cli compile-schema
 
 # build locales and compile schema
 i18n-cli build
+
+# status
+i18n-cli status
 ```
 
 ### Watch
@@ -78,23 +81,17 @@ You can configure the CLI tool's behavior by creating an `i18n.config.js` file i
 ```javascript
 // i18n.config.js
 module.exports = {
-  // Source code path
-  src: './src',
-
   // Translation files path
   locales: './public/_locales',
+
+  // Output path
+  output: './.i18n',
 
   // Default language
   defaultLocale: 'en',
 
   // Fallback language
   fallbackLocale: 'en',
-
-  // File extensions to extract
-  extensions: ['.js', '.jsx', '.ts', '.tsx'],
-
-  // Translation function names
-  functionNames: ['t', 'i18n.t', 'i18n.translate'],
 };
 ```
 
@@ -147,8 +144,11 @@ i18n-cli build-locales
 # schema 파일 생성
 i18n-cli compile-schema
 
-# build locales and compile schema
+# 국제화 파일 생성 및 schema 파일 생성
 i18n-cli build
+
+# status
+i18n-cli status
 ```
 
 ### watch
@@ -176,23 +176,17 @@ npx @99mini/i18n-cli build -b
 ```javascript
 // i18n.config.js
 module.exports = {
-  // 소스 코드 경로
-  src: './src',
-
   // 번역 파일 경로
   locales: './public/_locales',
+
+  // 아웃풋 경로
+  output: './.i18n',
 
   // 기본 언어
   defaultLocale: 'ko',
 
   // 대체 언어
-  fallbackLocale: 'en',
-
-  // 추출할 파일 확장자
-  extensions: ['.js', '.jsx', '.ts', '.tsx'],
-
-  // 번역 함수 이름
-  functionNames: ['t', 'i18n.t', 'i18n.translate'],
+  fallbackLocale: 'ko',
 };
 ```
 

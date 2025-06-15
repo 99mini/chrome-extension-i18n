@@ -2,5 +2,9 @@
   "hello": {
     "message": "안녕하세요",
     "description": "Hello message"
+  },
+  "hello-${name}": {
+    "message": "안녕하세요 ($1)",
+    "description": "Hello message with substitution"
   }
 }

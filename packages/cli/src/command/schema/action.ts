@@ -1,5 +1,5 @@
-import { compileSchema } from '../service';
-import { actionFn } from '../type';
+import { actionFn } from '../../type';
+import { compileSchema } from './service';
 import { spawn } from 'child_process';
 
 export const compileSchemaAction: actionFn = (options) => {

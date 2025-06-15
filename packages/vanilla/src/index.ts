@@ -8,7 +8,7 @@ import { getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
  */
 class I18nVanilla {
   private language: I18n.Language;
-  private messages: Record<I18n.Language, Record<I18n.Key, string>> = { en: { '': '' } };
+  private messages: Record<I18n.Language, Record<I18n.Key, string>> = {};
 
   /**
    * I18n 인스턴스 생성

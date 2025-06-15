@@ -6,7 +6,7 @@
  * i18n-cli build-locales [옵션]
  */
 import pkg from '../package.json';
-import { buildAction, buildLocalesAction, compileSchemaAction, statusAction } from './action';
+import { buildAction, buildLocalesAction, compileSchemaAction, initAction, statusAction } from './command';
 import { program } from 'commander';
 
 // CLI 버전 정보
@@ -45,6 +45,13 @@ program
   .action(buildAction);
 
 program.command('status').description('check translation status').action(statusAction);
+
+program
+  .command('init')
+  .description('초기화: tsconfig.json, .gitignore 설정 및 기본 설정 파일 생성')
+  .option('-f, --force', '기존 설정 파일 덮어쓰기')
+  .option('-c, --config <path>', '설정 파일 경로 지정')
+  .action(initAction);
 
 // 명령어가 없는 경우 도움말 표시
 program.on('command:*', () => {

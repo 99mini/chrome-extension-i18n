@@ -1,5 +1,5 @@
-import { status } from '../service';
-import { actionFn } from '../type';
+import { actionFn } from '../../type';
+import { status } from './service';
 import { spawn } from 'child_process';
 
 export const statusAction: actionFn = (options) => {

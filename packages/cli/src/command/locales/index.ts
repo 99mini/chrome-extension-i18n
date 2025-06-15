@@ -1,0 +1,1 @@
+export { buildLocalesAction } from './action';
