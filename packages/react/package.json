@@ -1,15 +1,22 @@
 {
   "name": "@99mini/i18n-react",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "React components and hooks for Chrome Extension i18n library",
   "type": "module",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "keywords": [
     "i18n",
     "chrome-extension",
@@ -18,6 +25,11 @@
   ],
   "author": "99mini",
   "license": "MIT",
+  "homepage": "https://www.npmjs.com/package/@99mini/i18n-react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/99mini/chrome-extension-i18n.git"
+  },
   "publishConfig": {
     "access": "public"
   },

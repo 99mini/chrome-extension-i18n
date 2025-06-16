@@ -50,15 +50,19 @@ program.command('status').description('check translation status').action(statusA
 
 program
   .command('init')
-  .description('초기화: tsconfig.json, .gitignore 설정 및 기본 설정 파일 생성')
-  .option('-f, --force', '기존 설정 파일 덮어쓰기')
-  .option('-c, --config <path>', '설정 파일 경로 지정')
+  .description('initialize: tsconfig.json, .gitignore settings and default config file')
+  .option('-f, --force', 'force overwrite')
+  .option('-e, --ext <ext>', 'config file extension (supported: js, ts, mjs, cjs, json, rc)', 'js')
+  .option('-o, --output-dir <path>', 'output directory', './.i18n')
+  .option('-l, --locales-dir <path>', 'locales directory', 'public/_locales')
+  .option('-d, --default-language <language>', 'default language', 'en')
+  .option('-s, --supported-languages <languages>', 'supported languages', 'en,ko')
   .action(initAction);
 
 // 명령어가 없는 경우 도움말 표시
 program.on('command:*', () => {
-  console.error('알 수 없는 명령어입니다.');
-  console.error('도움말을 보려면: i18n-cli --help');
+  console.error('Unknown command');
+  console.error('Run `i18n-cli --help` to see available commands');
   process.exit(1);
 });
 

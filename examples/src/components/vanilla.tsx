@@ -4,6 +4,7 @@ const Vanilla = () => {
   return (
     <div>
       <h1>{i18n.t('hello')}</h1>
+      <h1>{i18n.t('hello-${name}', ['John'])}</h1>
     </div>
   );
 };

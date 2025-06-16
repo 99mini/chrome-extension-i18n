@@ -12,4 +12,5 @@ export default defineConfig({
   esbuildOptions(options) {
     options.jsx = 'automatic';
   },
+  noExternal: ['@99mini/i18n-shared'],
 });

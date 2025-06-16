@@ -11,6 +11,7 @@ const I18nComponent = () => {
   return (
     <div>
       <h1>{t('hello')}</h1>
+      <h1>{t('hello-${name}', ['John'])}</h1>
     </div>
   );
 };
@@ -20,6 +21,7 @@ const TranslationComponent = () => {
   return (
     <div>
       <h1>{t('hello')}</h1>
+      <h1>{t('hello-${name}', ['John'])}</h1>
     </div>
   );
 };
@@ -28,6 +30,7 @@ const TransComponent = () => {
   return (
     <h1>
       <Trans keyword="hello" />
+      <Trans keyword="hello-${name}" substitutions={['John']} />
     </h1>
   );
 };

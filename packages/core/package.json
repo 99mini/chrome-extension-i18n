@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Core functionality for Chrome Extension i18n library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -9,9 +9,14 @@
     "dist",
     "README.md"
   ],
+  "homepage": "https://www.npmjs.com/package/@99mini/i18n",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/99mini/chrome-extension-i18n.git"
+  },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "build": "tsup --config tsup.config.ts",
+    "dev": "tsup --watch --config tsup.config.ts",
     "clean": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "format": "prettier --write src",
@@ -26,7 +31,7 @@
   ],
   "author": "99mini",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@99mini/i18n-shared": "workspace:*"
   },
   "publishConfig": {

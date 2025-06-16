@@ -79,7 +79,7 @@ importers:
         version: 12.1.0
 
   packages/core:
-    dependencies:
+    devDependencies:
       '@99mini/i18n-shared':
         specifier: workspace:*
         version: link:../shared

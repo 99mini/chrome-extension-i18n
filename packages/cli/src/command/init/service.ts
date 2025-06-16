@@ -1,41 +1,49 @@
 import fs from 'fs';
 import path from 'path';
 
+import { I18nConfig } from './type';
+
+type InitProjectArgs = Required<I18nConfig> & {
+  force?: boolean;
+  ext: 'ts' | 'js' | 'mjs' | 'cjs' | 'json' | 'rc';
+};
+
+const projectPath = process.cwd();
+
 /**
  * 프로젝트 초기화 함수
  * - tsconfig.json에 .i18n/schema.d.ts 추가
  * - .gitignore에 .i18n 추가
  * - 기본 설정 파일 생성
+ * @param args
  */
-export function initProject() {
-  const projectPath = process.cwd();
+export function initProject(args: InitProjectArgs) {
+  // 1. 기본 설정 파일 생성
+  createConfigFile(args);
 
-  // 1. 기본 디렉토리 생성
-  createI18nDirectory(projectPath);
+  // 2. 기본 디렉토리 생성
+  createI18nDirectory(args.outputDir);
 
-  // 2. tsconfig.json 수정
-  updateTsConfig(projectPath);
+  // 3. tsconfig.json 수정
+  updateTsConfig();
 
-  // 3. .gitignore 수정
-  updateGitignore(projectPath);
+  // 4. .gitignore 수정
+  updateGitignore(args.outputDir);
 
-  // 4. 기본 설정 파일 생성
-  createConfigFile(projectPath);
-
-  console.log('✅ i18n 프로젝트 초기화가 완료되었습니다.');
+  console.log('✅ i18n project initialized.');
 }
 
 /**
  * .i18n 디렉토리 생성
  */
-function createI18nDirectory(projectPath: string) {
-  const i18nDirPath = path.join(projectPath, '.i18n');
+function createI18nDirectory(outputDir: string) {
+  const i18nDirPath = path.join(projectPath, outputDir);
 
   if (!fs.existsSync(i18nDirPath)) {
     fs.mkdirSync(i18nDirPath, { recursive: true });
-    console.log('📁 .i18n 디렉토리를 생성했습니다.');
+    console.log('📁 .i18n directory created.');
   } else {
-    console.log('📁 .i18n 디렉토리가 이미 존재합니다.');
+    console.log('📁 .i18n directory already exists.');
   }
 }
 
@@ -43,12 +51,12 @@ function createI18nDirectory(projectPath: string) {
  * tsconfig.json 파일 수정
  * - include에 .i18n/schema.d.ts 추가
  */
-function updateTsConfig(projectPath: string) {
+function updateTsConfig() {
   const tsconfigPath = path.join(projectPath, 'tsconfig.json');
 
   // tsconfig.json이 존재하는지 확인
   if (!fs.existsSync(tsconfigPath)) {
-    console.log('⚠️ tsconfig.json 파일을 찾을 수 없습니다.');
+    console.log('⚠️ tsconfig.json not found.');
     return;
   }
 
@@ -66,12 +74,12 @@ function updateTsConfig(projectPath: string) {
 
       // 파일 쓰기
       fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
-      console.log('✅ tsconfig.json에 .i18n/schema.d.ts를 추가했습니다.');
+      console.log('✅ tsconfig.json updated.');
     } else {
-      console.log('✅ tsconfig.json에 이미 .i18n/schema.d.ts가 포함되어 있습니다.');
+      console.log('✅ tsconfig.json already updated.');
     }
   } catch (error) {
-    console.error('❌ tsconfig.json 파일을 수정하는 중 오류가 발생했습니다:', error);
+    console.error('❌ tsconfig.json update failed:', error);
   }
 }
 
@@ -79,14 +87,14 @@ function updateTsConfig(projectPath: string) {
  * .gitignore 파일 수정
  * - .i18n 추가
  */
-function updateGitignore(projectPath: string) {
+function updateGitignore(outputDir: string) {
   const gitignorePath = path.join(projectPath, '.gitignore');
 
   // .gitignore 파일이 존재하는지 확인
   if (!fs.existsSync(gitignorePath)) {
     // 파일이 없으면 새로 생성
-    fs.writeFileSync(gitignorePath, '# i18n\n.i18n\n');
-    console.log('✅ .gitignore 파일을 생성하고 .i18n을 추가했습니다.');
+    fs.writeFileSync(gitignorePath, `# i18n\n${outputDir}\n`);
+    console.log('✅ .gitignore created.');
     return;
   }
 
@@ -94,64 +102,79 @@ function updateGitignore(projectPath: string) {
   const gitignoreContent = fs.readFileSync(gitignorePath, 'utf8');
 
   // .i18n이 이미 포함되어 있는지 확인
-  if (!gitignoreContent.includes('.i18n')) {
+  if (!gitignoreContent.includes(outputDir)) {
     // 없으면 추가
-    const updatedContent = gitignoreContent.trim() + '\n\n# i18n\n.i18n\n';
+    const updatedContent = gitignoreContent.trim() + `\n\n# i18n\n${outputDir}\n`;
     fs.writeFileSync(gitignorePath, updatedContent);
-    console.log('✅ .gitignore에 .i18n을 추가했습니다.');
+    console.log('✅ .gitignore updated.');
   } else {
-    console.log('✅ .gitignore에 이미 .i18n이 포함되어 있습니다.');
+    console.log('✅ .gitignore already updated.');
   }
 }
 
 /**
  * i18n.config.js 파일 생성
  */
-function createConfigFile(projectPath: string) {
-  const configPath = path.join(projectPath, 'i18n.config.js');
+function createConfigFile(args: InitProjectArgs) {
+  let filename = 'i18n.config';
+  if (args.ext === 'rc') {
+    filename = '.i18nrc';
+  } else {
+    filename += `.${args.ext}`;
+  }
+  const configPath = path.join(projectPath, filename);
 
   // 파일이 이미 존재하는지 확인
   if (fs.existsSync(configPath)) {
-    console.log('✅ i18n.config.js 파일이 이미 존재합니다.');
+    console.log('✅ i18n.config.js already exists.');
     return;
   }
 
-  // 기본 설정 파일 내용
-  const configContent = `/**
- * i18n 설정 파일
+  let configContent = '';
+
+  if (args.ext === 'rc' || args.ext === 'json') {
+    configContent = `{
+  "outputDir": "${args.outputDir}",
+  "localesDir": "${args.localesDir}",
+  "defaultLanguage": "${args.defaultLanguage}",
+  "supportedLanguages": [${args.supportedLanguages.map((lang) => `"${lang}"`).join(', ')}]
+}`;
+  } else {
+    const defulatConfigContent = `{
+  /** output directory */
+  outputDir: "${args.outputDir}",
+  
+  /** locales directory */
+  localesDir: "${args.localesDir}",
+  
+  /** default language */
+  defaultLanguage: "${args.defaultLanguage}",
+  
+  /** supported languages */
+  supportedLanguages: [${args.supportedLanguages.map((lang) => `"${lang}"`).join(', ')}],
+}`;
+    if (args.ext === 'ts') {
+      configContent = `import { I18nConfig } from '@99mini/i18n-cli';
+
+const config: I18nConfig = ${defulatConfigContent};
+
+export default config;`;
+    } else if (args.ext === 'js' || args.ext === 'cjs') {
+      configContent = `/*
+ * @type {import('@99mini/i18n-cli').I18nConfig}
  */
-module.exports = {
-  // 출력 디렉토리 설정
-  outputDir: './.i18n',
-  
-  // 로케일 디렉토리 설정
-  localesDir: './public/_locales',
-  
-  // 기본 언어 설정
-  defaultLanguage: 'ko',
-  
-  // 지원하는 언어 목록
-  supportedLanguages: ['ko', 'en'],
-  
-  // 번역 키 추출 설정
-  extraction: {
-    // 소스 코드 디렉토리
-    sourceDir: './src',
-    
-    // 추출할 파일 확장자
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    
-    // 키 추출 패턴 (정규식)
-    patterns: [
-      't\\(["\\'](.[^"\\']+)["\\']',
-      'useTranslation\\(["\\'](.[^"\\']+)["\\']',
-      'data-i18n=["\\'](.[^"\\']+)["\\']'
-    ]
+module.exports = ${defulatConfigContent};`;
+    } else if (args.ext === 'mjs') {
+      configContent = `/*
+ * @type {import('@99mini/i18n-cli').I18nConfig}
+ */
+export default ${defulatConfigContent};`;
+    } else {
+      throw new Error(`Unsupported file extension: ${args.ext}`);
+    }
   }
-};
-`;
 
   // 파일 쓰기
   fs.writeFileSync(configPath, configContent);
-  console.log('✅ i18n.config.js 파일을 생성했습니다.');
+  console.log(`✅ ${filename} created.`);
 }
