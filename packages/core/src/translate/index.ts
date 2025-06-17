@@ -34,7 +34,7 @@ export const loadI18nData = async (jsonPath: string = './.i18n/i18n.json') => {
       const response = await fetch(`${config.outputDir ? path.join(config.outputDir, 'i18n.json') : jsonPath}`);
       if (response.ok) {
         store._messages = await response.json();
-        console.log('✅ 개발환경에서 i18n 모킹 데이터가 로드되었습니다.');
+        console.debug('✅ 개발환경에서 i18n 모킹 데이터가 로드되었습니다.');
       } else {
         console.warn('⚠️ .i18n.json 파일을 가져오는데 실패했습니다:', response.status);
       }

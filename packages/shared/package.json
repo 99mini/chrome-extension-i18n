@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n-shared",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Shared types and scripts for i18n packages",
   "author": "99mini",
   "license": "MIT",

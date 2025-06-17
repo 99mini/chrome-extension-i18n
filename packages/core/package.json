@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Core functionality for Chrome Extension i18n library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

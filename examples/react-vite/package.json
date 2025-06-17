@@ -13,14 +13,14 @@
     "i18n:status": "i18n-cli status"
   },
   "dependencies": {
+    "@99mini/i18n": "^1.0.6",
+    "@99mini/i18n-react": "^1.0.5",
+    "@99mini/i18n-vanilla": "^1.0.5",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "@99mini/i18n": "^1.0.5",
-    "@99mini/i18n-react": "^1.0.4",
-    "@99mini/i18n-vanilla": "^1.0.4"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@99mini/i18n-cli": "^1.0.8",
+    "@99mini/i18n-cli": "^1.0.9",
     "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
@@ -31,6 +31,7 @@
     "globals": "^16.0.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vite-plugin-node-polyfills": "^0.23.0"
   }
 }

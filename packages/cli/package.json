@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n-cli",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Chrome Extension i18n CLI",
   "main": "dist/bin.js",
   "types": "dist/index.d.ts",

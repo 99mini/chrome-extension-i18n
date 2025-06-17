@@ -2,10 +2,9 @@
  * @see https://github.com/eslint/eslint/blob/main/lib/config/config-loader.js
  *
  */
-import fsSync from 'fs';
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import fs from 'fs';
+import path from 'path';
+import { pathToFileURL } from 'url';
 
 import { I18nConfig } from '../../types';
 
@@ -89,7 +88,7 @@ function isFileRC(filePath: string): boolean {
  */
 async function loadConfig(): Promise<I18nConfig> {
   try {
-    const configPath = FLAT_CONFIG_FILENAMES.find((fileName) => fsSync.existsSync(path.join(process.cwd(), fileName)));
+    const configPath = FLAT_CONFIG_FILENAMES.find((fileName) => fs.existsSync(path.join(process.cwd(), fileName)));
 
     /**
      * return default config
@@ -99,7 +98,7 @@ async function loadConfig(): Promise<I18nConfig> {
     }
 
     const fileURL = pathToFileURL(configPath);
-    const mtime = (await fs.stat(configPath)).mtime.getTime();
+    const mtime = fs.statSync(configPath).mtime.getTime();
 
     fileURL.searchParams.append('mtime', mtime.toString());
 

@@ -2,7 +2,7 @@
 const config = {
   outputDir: './.i18n',
   localesDir: 'public/_locales',
-  defaultLanguage: 'en',
+  defaultLanguage: 'ko',
   supportedLanguages: ['en', 'ko'],
 };
 
