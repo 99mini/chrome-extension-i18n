@@ -1,6 +1,0 @@
-{
-  "outputDir": "./.i18n",
-  "localesDir": "public/_locales",
-  "defaultLanguage": "en",
-  "supportedLanguages": ["en", "ko"]
-}
