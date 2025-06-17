@@ -44,6 +44,21 @@ async function dynamicImportConfig(filePath: string, fileURL: URL, mtime: number
   return module.default;
 }
 
+/**
+ *
+ * @returns - is node environment
+ */
+function isNodeEnvironment(): boolean {
+  return typeof process !== 'undefined' && !!process.versions && !!process.versions.node;
+}
+
+/**
+ * @returns - is browser environment
+ */
+function isBrowserEnvironment(): boolean {
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+}
+
 function isFileJS(filePath: string): boolean {
   const fileExtension = path.extname(filePath);
 
@@ -88,22 +103,61 @@ function isFileRC(filePath: string): boolean {
  */
 async function loadConfig(): Promise<I18nConfig> {
   try {
-    const configPath = FLAT_CONFIG_FILENAMES.find((fileName) => fs.existsSync(path.join(process.cwd(), fileName)));
+    let configPath: string | undefined = undefined;
+    let fileURL: URL | undefined = undefined;
+    let mtime: string | number | undefined = undefined;
+    if (isNodeEnvironment()) {
+      try {
+        configPath = FLAT_CONFIG_FILENAMES.find((fileName) => fs.existsSync(path.join(process.cwd(), fileName)));
+
+        if (!configPath) {
+          return defaultConfig;
+        }
+
+        fileURL = pathToFileURL(configPath);
+        mtime = fs.statSync(configPath).mtime.getTime();
+
+        fileURL.searchParams.append('mtime', mtime.toString());
+
+        if (importedConfigFileModificationTime.get(configPath) !== Number(mtime)) {
+          delete require.cache[configPath];
+        }
+      } catch (error) {
+        console.error('[ERR] Node environment. Failed to load i18n config:', error);
+      }
+    } else if (isBrowserEnvironment()) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (typeof window !== 'undefined' && (window as any).__I18N_CONFIG__) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        configPath = (window as any).__I18N_CONFIG__;
+      } else {
+        try {
+          const response = await Promise.any(
+            FLAT_CONFIG_FILENAMES.map((fileName) => fetch(path.join(process.cwd(), fileName))),
+          );
+
+          if (response.ok) {
+            configPath = response.url;
+
+            fileURL = new URL(configPath);
+            mtime = response.headers.get('mtime') || Date.now().toString();
+
+            fileURL.searchParams.append('mtime', mtime);
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (window as any).__I18N_CONFIG__ = configPath;
+          }
+        } catch (error) {
+          console.error('[ERR] Browser environment. Failed to load i18n config:', error);
+        }
+      }
+    }
 
     /**
      * return default config
      */
-    if (!configPath) {
+    if (!configPath || !fileURL || !mtime) {
       return defaultConfig;
-    }
-
-    const fileURL = pathToFileURL(configPath);
-    const mtime = fs.statSync(configPath).mtime.getTime();
-
-    fileURL.searchParams.append('mtime', mtime.toString());
-
-    if (importedConfigFileModificationTime.get(configPath) !== mtime) {
-      delete require.cache[configPath];
     }
 
     const isTS = isFileTS(configPath);
@@ -113,15 +167,15 @@ async function loadConfig(): Promise<I18nConfig> {
     const isRC = isFileRC(configPath);
 
     if (isTS) {
-      return dynamicImportConfig(configPath, fileURL, mtime);
+      return dynamicImportConfig(configPath, fileURL, Number(mtime));
     }
 
     if (isJS) {
-      return dynamicImportConfig(configPath, fileURL, mtime);
+      return dynamicImportConfig(configPath, fileURL, Number(mtime));
     }
 
     if (isJSON || isRC) {
-      importedConfigFileModificationTime.set(configPath, mtime);
+      importedConfigFileModificationTime.set(configPath, Number(mtime));
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       return require(path.join(process.cwd(), configPath));
     }

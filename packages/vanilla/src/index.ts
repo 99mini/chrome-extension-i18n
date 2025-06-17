@@ -59,6 +59,7 @@ class I18nVanilla {
    * @returns 현재 언어 코드
    */
   getLanguage(): I18n.Language {
+    this.language = currentLanguage();
     return this.language;
   }
 

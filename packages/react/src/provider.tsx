@@ -1,7 +1,7 @@
 /**
  * I18n 제공자 컴포넌트
  */
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import { currentLanguage, loadI18nData, setLanguage, t as translate } from '@99mini/i18n';
 import { configLoader } from '@99mini/i18n-shared';
@@ -14,11 +14,6 @@ const t: typeof translate = (key, substitutions) => {
 };
 
 // 컨텍스트 값
-const contextValue: I18nContextType = {
-  t,
-  language: currentLanguage(),
-  setLanguage,
-};
 
 // I18n 제공자 속성 타입 정의
 export interface I18nProviderProps {
@@ -29,6 +24,7 @@ export interface I18nProviderProps {
  * I18n 제공자 컴포넌트
  */
 export const I18nProvider = ({ children }: I18nProviderProps) => {
+  const [language, _setLanguage] = useState(() => currentLanguage());
   // 초기 로딩
   useEffect(() => {
     const loadMessages = async () => {
@@ -39,6 +35,15 @@ export const I18nProvider = ({ children }: I18nProviderProps) => {
 
     loadMessages();
   }, []);
+
+  const contextValue: I18nContextType = {
+    t,
+    language,
+    setLanguage: (lang: I18n.Language) => {
+      setLanguage(lang);
+      _setLanguage(lang);
+    },
+  };
 
   return <I18nContext.Provider value={contextValue}>{children}</I18nContext.Provider>;
 };
