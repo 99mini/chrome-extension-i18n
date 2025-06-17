@@ -4,7 +4,7 @@ import { status } from './service';
 
 import { actionFn } from '../../type';
 
-export const statusAction: actionFn = (options) => {
+export const statusAction: actionFn = async (options) => {
   const args: string[] = [];
 
   if (options.watch) {
@@ -22,7 +22,7 @@ export const statusAction: actionFn = (options) => {
     return;
   }
 
-  const missingKeys = status(args);
+  const missingKeys = await status(args);
 
   if (missingKeys.length === 0) {
     console.log('No missing keys found');

@@ -1,5 +1,6 @@
 import chokidar from 'chokidar';
 import fs from 'fs';
+import { loadConfig } from 'lib/config/config-loader';
 import path from 'path';
 
 function compileSchemaSync(basePath: string, outputPath: string) {
@@ -53,9 +54,10 @@ export {}`;
  *
  * ```
  */
-export function compileSchema(args: string[]) {
-  const basePath = args.find((arg) => arg === '--base-path' || arg === '-b') || './.i18n';
-  const outputPath = args.find((arg) => arg === '--output-path' || arg === '-o') || './.i18n';
+export async function compileSchema(args: string[]) {
+  const config = await loadConfig();
+  const basePath = config?.outputDir || args.find((arg) => arg === '--base-path' || arg === '-b') || './.i18n';
+  const outputPath = config?.outputDir || args.find((arg) => arg === '--output-path' || arg === '-o') || './.i18n';
 
   const watchMode = args.includes('--watch');
   const backgroundMode = args.includes('--background');
@@ -80,7 +82,7 @@ export function compileSchema(args: string[]) {
 
     if (!backgroundMode) {
       process.on('SIGINT', () => {
-        console.log('\n🔔 파일 감시를 종료합니다.');
+        console.log('\n🔔 schema compile watch mode stopped');
         watcher.close().then(() => process.exit(0));
       });
 

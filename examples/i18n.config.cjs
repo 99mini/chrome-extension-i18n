@@ -1,6 +1,5 @@
-import { I18nConfig } from '@99mini/i18n-cli';
-
-const config: I18nConfig = {
+/** @type {import('@99mini/i18n-cli').I18nConfig} */
+module.exports = {
   /** output directory */
   outputDir: './.i18n',
 
@@ -13,5 +12,3 @@ const config: I18nConfig = {
   /** supported languages */
   supportedLanguages: ['en', 'ko'],
 };
-
-export default config;

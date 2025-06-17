@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { loadConfig } from 'lib/config/config-loader';
 import path from 'path';
 
 /**
@@ -22,10 +23,14 @@ import path from 'path';
  * | hello2 | en |
  * ```
  */
-export function status(args: string[]): { key: string; 'missing langs': string }[] {
+export async function status(args: string[]): Promise<{ key: string; 'missing langs': string }[]> {
+  const config = await loadConfig();
   const outputPathIndex = args.indexOf('--output-path');
-  const outputPath =
-    outputPathIndex !== -1 && args.length > outputPathIndex + 1 ? args[outputPathIndex + 1] : './.i18n';
+  const outputPath = config?.outputDir
+    ? config?.outputDir
+    : outputPathIndex !== -1 && args.length > outputPathIndex + 1
+      ? args[outputPathIndex + 1]
+      : './.i18n';
 
   const i18nJsonPath = path.join(outputPath, 'i18n.json');
 

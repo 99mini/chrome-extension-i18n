@@ -43,7 +43,7 @@ const message = i18n.t('hello_world');
 console.log(message); // Hello, world!
 
 // message translation with variables
-const welcomeMessage = i18n.t('welcome', { name: 'John' });
+const welcomeMessage = i18n.t('welcome', ['John']);
 console.log(welcomeMessage); // Welcome, John!
 
 // change language
@@ -66,7 +66,7 @@ i18n.on('localeChanged', (newLocale, oldLocale) => {
 
 function updateUI() {
   document.getElementById('greeting').textContent = i18n.t('greeting');
-  document.getElementById('welcome').textContent = i18n.t('welcome', { name: 'John' });
+  document.getElementById('welcome').textContent = i18n.t('welcome', ['John']);
 }
 ```
 
@@ -193,7 +193,7 @@ const message = i18n.t('hello_world');
 console.log(message); // 안녕하세요, 세계!
 
 // 변수가 포함된 메시지 번역
-const welcomeMessage = i18n.t('welcome', { name: '홍길동' });
+const welcomeMessage = i18n.t('welcome', ['홍길동']);
 console.log(welcomeMessage); // 환영합니다, 홍길동님!
 
 // 언어 변경
@@ -216,7 +216,7 @@ i18n.on('localeChanged', (newLocale, oldLocale) => {
 
 function updateUI() {
   document.getElementById('greeting').textContent = i18n.t('greeting');
-  document.getElementById('welcome').textContent = i18n.t('welcome', { name: '홍길동' });
+  document.getElementById('welcome').textContent = i18n.t('welcome', ['홍길동']);
 }
 ```
 

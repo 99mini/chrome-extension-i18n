@@ -37,6 +37,7 @@
  */
 import chokidar from 'chokidar';
 import fs from 'fs';
+import { loadConfig } from 'lib/config/config-loader';
 import path from 'path';
 
 // 프로젝트 루트 경로
@@ -56,7 +57,7 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
 
   // _locales 폴더가 존재하는지 확인
   if (!fs.existsSync(localesPath)) {
-    console.error(`❌ ${localesPath} 폴더가 존재하지 않습니다.`);
+    console.error(`❌ ${localesPath} not found`);
     return;
   }
 
@@ -97,21 +98,26 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
 
   const now = new Date();
   const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-  console.log(`✅ [${timeString}] ${path.join(outputPath, 'i18n.json')} 파일이 생성되었습니다.`);
+  console.log(`✅ [${timeString}] ${path.join(outputPath, 'i18n.json')} file created.`);
 }
 
-export function buildLocalesSync(args: string[]) {
+export async function buildLocalesSync(args: string[]) {
+  const config = await loadConfig();
   const watchMode = args.includes('--watch');
   const backgroundMode = args.includes('--background');
 
   // 커스텀 경로 옵션 처리
   const localesPathIndex = args.indexOf('--locales-path');
-  const localesPath =
-    localesPathIndex !== -1 && args.length > localesPathIndex + 1 ? args[localesPathIndex + 1] : defaultLocalesPath;
+  const localesPath = config?.localesDir
+    ? config?.localesDir
+    : localesPathIndex !== -1 && args.length > localesPathIndex + 1
+      ? args[localesPathIndex + 1]
+      : defaultLocalesPath;
 
   const outputPathIndex = args.indexOf('--output-path');
-  const outputPath =
-    outputPathIndex !== -1 && args.length > outputPathIndex + 1
+  const outputPath = config?.outputDir
+    ? config?.outputDir
+    : outputPathIndex !== -1 && args.length > outputPathIndex + 1
       ? args[outputPathIndex + 1]
       : path.join(rootPath, '.i18n');
 
@@ -120,7 +126,7 @@ export function buildLocalesSync(args: string[]) {
 
   // watch 모드인 경우 파일 변경 감지
   if (watchMode) {
-    console.log(`👀 ${localesPath} 폴더의 messages.json 파일 변경 감지 중...`);
+    console.log(`👀 ${localesPath} folder messages.json file change watch mode started...`);
 
     // 모든 messages.json 파일 경로 패턴
     const messagesPattern = path.join(localesPath, '**', 'messages.json');
@@ -134,27 +140,27 @@ export function buildLocalesSync(args: string[]) {
     // 파일 변경 이벤트 처리
     watcher.on('change', (filePath) => {
       const relativePath = path.relative(localesPath, filePath);
-      console.log(`🔄 ${relativePath} 파일이 변경되었습니다.`);
+      console.log(`🔄 ${relativePath} file changed`);
       buildLocales(localesPath, outputPath);
     });
 
     // 파일 추가 이벤트 처리
     watcher.on('add', (filePath) => {
       const relativePath = path.relative(localesPath, filePath);
-      console.log(`➕ ${relativePath} 파일이 추가되었습니다.`);
+      console.log(`➕ ${relativePath} file added`);
       buildLocales(localesPath, outputPath);
     });
 
     // 에러 처리
     watcher.on('error', (error) => {
-      console.error('❌ 파일 감시 중 오류가 발생했습니다:', error);
+      console.error('❌ locales watch mode stopped', error);
     });
 
     // 백그라운드 모드가 아닌 경우, 프로세스가 종료되지 않도록 유지
     if (!backgroundMode) {
       // 시그널 핸들러 등록
       process.on('SIGINT', () => {
-        console.log('\n🔔 파일 감시를 종료합니다.');
+        console.log('\n🔔 locales watch mode stopped');
         watcher.close().then(() => process.exit(0));
       });
 

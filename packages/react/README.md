@@ -56,7 +56,7 @@ function Greeting() {
   return (
     <div>
       <h1>{t('greeting')}</h1>
-      <p>{t('welcome_message', { name: 'John' })}</p>
+      <p>{t('welcome_message', ['John'])}</p>
 
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         <option value="ko">한국어</option>
@@ -181,7 +181,7 @@ function Greeting() {
   return (
     <div>
       <h1>{t('greeting')}</h1>
-      <p>{t('welcome_message', { name: '홍길동' })}</p>
+      <p>{t('welcome_message', ['홍길동'])}</p>
 
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         <option value="ko">한국어</option>

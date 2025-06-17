@@ -4,7 +4,6 @@
   "description": "Chrome Extension i18n CLI",
   "main": "dist/bin.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "bin": {
     "i18n-cli": "./dist/bin.js"
   },

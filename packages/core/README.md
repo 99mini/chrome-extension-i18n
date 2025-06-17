@@ -41,7 +41,7 @@ const message = t('hello_world');
 console.log(message); // Hello, world!
 
 // Get a message with variables
-const welcomeMessage = t('welcome', { name: 'John' });
+const welcomeMessage = t('welcome', ['John']);
 console.log(welcomeMessage); // Welcome, John!
 ```
 
@@ -119,7 +119,7 @@ const message = t('hello_world');
 console.log(message); // 안녕하세요, 세계!
 
 // 변수가 포함된 메시지 가져오기
-const welcomeMessage = t('welcome', { name: '홍길동' });
+const welcomeMessage = t('welcome', ['홍길동']);
 console.log(welcomeMessage); // 환영합니다, 홍길동님!
 ```
 
