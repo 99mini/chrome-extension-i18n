@@ -6,6 +6,23 @@ const ReactLifecycleI18nProvider = ({ children }: { children: ReactNode }) => {
   return <I18nProvider>{children}</I18nProvider>;
 };
 
+const SwitchLanguageButton = () => {
+  const { setLanguage, language } = useI18n();
+  return (
+    <button
+      onClick={() => {
+        if (language === 'en') {
+          setLanguage('ko');
+        } else {
+          setLanguage('en');
+        }
+      }}
+    >
+      {language}
+    </button>
+  );
+};
+
 const I18nComponent = () => {
   const { t } = useI18n();
   return (
@@ -39,6 +56,7 @@ const ReactLifecycle = () => {
   return (
     <ReactLifecycleI18nProvider>
       <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <SwitchLanguageButton />
         <I18nComponent />
         <TranslationComponent />
         <TransComponent />

@@ -6,6 +6,7 @@
   "packageManager": "npm@10.8.1",
   "scripts": {
     "dev": "i18n-cli build -wb && vite",
+    "clean": "rm -rf node_modules && rm -rf package-lock.json && npm install",
     "i18n:help": "i18n-cli --help",
     "i18n:init": "i18n-cli init",
     "i18n:compile-schema": "i18n-cli compile-schema",
@@ -13,9 +14,9 @@
     "i18n:status": "i18n-cli status"
   },
   "dependencies": {
-    "@99mini/i18n": "^1.0.6",
-    "@99mini/i18n-react": "^1.0.5",
-    "@99mini/i18n-vanilla": "^1.0.5",
+    "@99mini/i18n": "^1.0.7",
+    "@99mini/i18n-react": "^1.0.6",
+    "@99mini/i18n-vanilla": "^1.0.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

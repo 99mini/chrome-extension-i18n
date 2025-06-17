@@ -3,7 +3,8 @@
  */
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { LocaleMessages, currentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
+import { LocaleMessages, currentLanguage, loadI18nData, setLanguage, t as translate } from '@99mini/i18n';
+import { configLoader } from '@99mini/i18n-shared';
 
 import { I18nContext, I18nContextType } from './context';
 
@@ -11,29 +12,30 @@ import { I18nContext, I18nContextType } from './context';
 export interface I18nProviderProps {
   children: ReactNode;
   initialLanguage?: I18n.Language;
-  i18nPath?: string;
 }
 
 /**
  * I18n 제공자 컴포넌트
  */
-export const I18nProvider = ({ children, initialLanguage, i18nPath = './.i18n/i18n.json' }: I18nProviderProps) => {
+export const I18nProvider = ({ children, initialLanguage }: I18nProviderProps) => {
   // 현재 언어 상태
-  const [language, setLanguage] = useState<I18n.Language>(initialLanguage || currentLanguage);
+  const [language, _setLanguage] = useState<I18n.Language>(initialLanguage || currentLanguage());
   // 메시지 상태
   const [messages, setMessages] = useState<LocaleMessages>({ ko: {}, en: {} });
 
   // 초기 로딩
   useEffect(() => {
     const loadMessages = async () => {
-      const data = await loadI18nData(i18nPath);
+      const config = await configLoader.getConfig();
+
+      const data = await loadI18nData(`${config.outputDir}/i18n.json`);
       if (data) {
         setMessages(data);
       }
     };
 
     loadMessages();
-  }, [i18nPath]);
+  }, []);
 
   // t 함수 래핑 (현재 언어 적용)
   const t: typeof translate = (key, substitutions) => {
@@ -44,7 +46,10 @@ export const I18nProvider = ({ children, initialLanguage, i18nPath = './.i18n/i1
   const contextValue: I18nContextType = {
     t,
     language,
-    setLanguage,
+    setLanguage: (lang: I18n.Language) => {
+      _setLanguage(lang);
+      setLanguage(lang);
+    },
     messages,
   };
 

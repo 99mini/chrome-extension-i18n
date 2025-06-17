@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n-vanilla",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Vanilla JS implementation for Chrome Extension i18n library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

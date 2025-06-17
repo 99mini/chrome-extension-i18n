@@ -1,7 +1,7 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 Vanilla JS 구현
  */
-import { currentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
+import { currentLanguage, loadI18nData, setLanguage as setLanguageCore, t as translate } from '@99mini/i18n';
 
 /**
  * I18n 인스턴스 클래스
@@ -16,7 +16,7 @@ class I18nVanilla {
    * @param i18nPath i18n 데이터 경로 (선택적)
    */
   constructor(initialLanguage?: I18n.Language, i18nPath: string = './.i18n/i18n.json') {
-    this.language = initialLanguage || currentLanguage;
+    this.language = initialLanguage || currentLanguage();
 
     // 개발 환경에서 데이터 로드
     if (process.env.NODE_ENV === 'development') {
@@ -41,6 +41,7 @@ class I18nVanilla {
    */
   setLanguage(lang: I18n.Language): void {
     this.language = lang;
+    setLanguageCore(lang);
 
     // 언어 변경 이벤트 발생
     document.dispatchEvent(

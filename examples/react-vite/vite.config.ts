@@ -13,7 +13,7 @@ export default defineConfig({
         process: true,
       },
       // fs 및 path 모듈 폴리필 추가
-      include: ['fs', 'path'],
+      include: ['fs', 'path', 'url'],
       // 폴리필 옵션 설정 (타입 오류 수정)
       protocolImports: true,
     }),
