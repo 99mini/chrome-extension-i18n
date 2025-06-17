@@ -7,7 +7,7 @@ import { I18nContext } from './context';
 
 /**
  * i18n 훅
- * @returns i18n 기능 (t, language, setLanguage, messages)
+ * @returns i18n 기능 (t, language, setLanguage)
  */
 export const useI18n = () => {
   const context = useContext(I18nContext);

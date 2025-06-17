@@ -1,0 +1,10 @@
+{
+  "en": {
+    "hello": "Hello",
+    "hello-${name}": "Hello ($1)"
+  },
+  "ko": {
+    "hello": "안녕하세요",
+    "hello-${name}": "안녕하세요 ($1)"
+  }
+}

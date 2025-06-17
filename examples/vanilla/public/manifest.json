@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "i18n example (react-vite)",
-  "description": "i18n example (react-vite)",
+  "name": "i18n example (vanilla)",
+  "description": "i18n example (vanilla)",
   "version": "1.0.0",
   "default_locale": "en",
   "action": {

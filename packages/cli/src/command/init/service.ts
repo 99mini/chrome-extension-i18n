@@ -157,12 +157,12 @@ const config: I18nConfig = ${defulatConfigContent};
 
 export default config;`;
     } else if (args.ext === 'js' || args.ext === 'cjs') {
-      configContent = `/*
+      configContent = `/**
  * @type {import('@99mini/i18n-cli').I18nConfig}
  */
 module.exports = ${defulatConfigContent};`;
     } else if (args.ext === 'mjs') {
-      configContent = `/*
+      configContent = `/**
  * @type {import('@99mini/i18n-cli').I18nConfig}
  */
 export default ${defulatConfigContent};`;
