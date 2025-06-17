@@ -4,7 +4,7 @@ import { buildLocalesSync } from './service';
 
 import { actionFn } from '../../type';
 
-export const buildLocalesAction: actionFn = (options) => {
+export const buildLocalesAction: actionFn = async (options) => {
   const args: string[] = [];
 
   if (options.watch) {
@@ -50,5 +50,5 @@ export const buildLocalesAction: actionFn = (options) => {
   }
 
   // buildLocalesSync 함수 실행
-  buildLocalesSync(args);
+  await buildLocalesSync(args);
 };

@@ -1,23 +1,39 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 국제화 모듈
  */
-import { I18n } from '@99mini/i18n-shared';
+import path from 'path';
+
+import { I18n, I18nConfig, configLoader, defaultConfig } from '@99mini/i18n-shared';
+
+let config: I18nConfig = defaultConfig;
+
+configLoader.getConfig().then((_config) => (config = _config));
+
+const store = {
+  _language: (config.defaultLanguage || navigator.language.split('-')[0]) as I18n.Language,
+  _messages: {} as Record<I18n.Language, Record<I18n.Key, string>>,
+  get language() {
+    return this._language;
+  },
+  set language(lang: I18n.Language) {
+    this.language = lang;
+  },
+};
 
 // 현재 브라우저 언어 설정 가져오기 (기본값: en)
-export let currentLanguage = (navigator.language.split('-')[0] || 'en') as I18n.Language;
+export const currentLanguage: I18n.Language = store.language;
 
-// 개발 환경에서 사용할 번역 데이터
-let messages: Record<I18n.Language, Record<I18n.Key, string>> = { en: { '': '' } };
-
-export const getCurrentLanguage = () => currentLanguage;
+export const setLanguage = (lang: I18n.Language): void => {
+  store.language = lang;
+};
 
 // 개발 환경에서 .i18n.json 파일 로드 함수
-export const loadI18nData = async (path: string = './.i18n/i18n.json') => {
-  if (process.env.NODE_ENV === 'development') {
+export const loadI18nData = async (jsonPath: string = './.i18n/i18n.json') => {
+  if (process.env.NODE_ENV === 'development' || config.debug) {
     try {
-      const response = await fetch(path);
+      const response = await fetch(`${config.outputDir ? path.join(config.outputDir, 'i18n.json') : jsonPath}`);
       if (response.ok) {
-        messages = await response.json();
+        store._messages = await response.json();
         console.log('✅ 개발환경에서 i18n 모킹 데이터가 로드되었습니다.');
       } else {
         console.warn('⚠️ .i18n.json 파일을 가져오는데 실패했습니다:', response.status);
@@ -27,7 +43,7 @@ export const loadI18nData = async (path: string = './.i18n/i18n.json') => {
     }
   }
 
-  return messages;
+  return store._messages;
 };
 
 /**
@@ -43,8 +59,8 @@ export const t = (key: I18n.Key, substitutions?: string | string[]): string => {
   }
 
   // 개발 환경에서는 로컬 .i18n.json 파일 사용
-  if (messages[currentLanguage]?.[key]) {
-    let result = messages[currentLanguage][key];
+  if (store._messages[currentLanguage]?.[key]) {
+    let result = store._messages[currentLanguage][key];
 
     // 간단한 대체문자열 처리
     if (substitutions) {
@@ -57,13 +73,13 @@ export const t = (key: I18n.Key, substitutions?: string | string[]): string => {
     return result;
   }
 
-  // 현재 언어에 없으면 영어 시도
-  if (currentLanguage !== 'en' && messages['en']?.[key]) {
-    return messages['en'][key];
+  // 현재 언어에 없으면 fallbackLanguage -> defaultLanguage -> 'en' 순서로 사용
+  if (store._messages[config.fallbackLanguage || config.defaultLanguage || 'en']?.[key]) {
+    return store._messages[config.fallbackLanguage || config.defaultLanguage || 'en'][key];
   }
 
   // 개발 환경이나 API를 사용할 수 없는 경우 키 반환
   return key;
 };
 
-export default { t, currentLanguage, getCurrentLanguage };
+export default { t, currentLanguage, setLanguage, getCurrentLanguage: () => currentLanguage };

@@ -5,22 +5,22 @@
   "type": "module",
   "packageManager": "npm@10.8.1",
   "scripts": {
-    "dev": "node ../packages/cli build -wb && vite",
-    "i18n:help": "node ../packages/cli --help",
-    "i18n:init": "node ../packages/cli init --ext=ts",
-    "i18n:compile-schema": "node ../packages/cli compile-schema",
-    "i18n:build": "node ../packages/cli build",
-    "i18n:status": "node ../packages/cli status"
+    "dev": "i18n-cli build -wb && vite",
+    "i18n:help": "i18n-cli --help",
+    "i18n:init": "i18n-cli init",
+    "i18n:compile-schema": "i18n-cli compile-schema",
+    "i18n:build": "i18n-cli build",
+    "i18n:status": "i18n-cli status"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "@99mini/i18n": "^1.0.2",
-    "@99mini/i18n-react": "^1.0.2",
-    "@99mini/i18n-vanilla": "^1.0.2"
+    "@99mini/i18n": "^1.0.5",
+    "@99mini/i18n-react": "^1.0.4",
+    "@99mini/i18n-vanilla": "^1.0.4"
   },
   "devDependencies": {
-    "@99mini/i18n-cli": "file:../packages/cli",
+    "@99mini/i18n-cli": "^1.0.8",
     "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

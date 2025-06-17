@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { I18nConfig } from './type';
+import { I18nConfig } from '@99mini/i18n-shared';
 
 type InitProjectArgs = Required<I18nConfig> & {
   force?: boolean;
@@ -143,13 +143,10 @@ function createConfigFile(args: InitProjectArgs) {
     const defulatConfigContent = `{
   /** output directory */
   outputDir: "${args.outputDir}",
-  
   /** locales directory */
   localesDir: "${args.localesDir}",
-  
   /** default language */
   defaultLanguage: "${args.defaultLanguage}",
-  
   /** supported languages */
   supportedLanguages: [${args.supportedLanguages.map((lang) => `"${lang}"`).join(', ')}],
 }`;

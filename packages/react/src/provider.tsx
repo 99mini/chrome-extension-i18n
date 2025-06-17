@@ -3,7 +3,7 @@
  */
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { LocaleMessages, getCurrentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
+import { LocaleMessages, currentLanguage, loadI18nData, t as translate } from '@99mini/i18n';
 
 import { I18nContext, I18nContextType } from './context';
 
@@ -19,7 +19,7 @@ export interface I18nProviderProps {
  */
 export const I18nProvider = ({ children, initialLanguage, i18nPath = './.i18n/i18n.json' }: I18nProviderProps) => {
   // 현재 언어 상태
-  const [language, setLanguage] = useState<I18n.Language>(initialLanguage || getCurrentLanguage());
+  const [language, setLanguage] = useState<I18n.Language>(initialLanguage || currentLanguage);
   // 메시지 상태
   const [messages, setMessages] = useState<LocaleMessages>({ ko: {}, en: {} });
 

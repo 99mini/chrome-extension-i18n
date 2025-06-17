@@ -37,8 +37,9 @@
  */
 import chokidar from 'chokidar';
 import fs from 'fs';
-import { loadConfig } from 'lib/config/config-loader';
 import path from 'path';
+
+import { configLoader } from '@99mini/i18n-shared';
 
 // 프로젝트 루트 경로
 const rootPath = process.cwd();
@@ -102,21 +103,21 @@ function buildLocales(localesPath: string = defaultLocalesPath, outputPath: stri
 }
 
 export async function buildLocalesSync(args: string[]) {
-  const config = await loadConfig();
+  const config = await configLoader.getConfig();
   const watchMode = args.includes('--watch');
   const backgroundMode = args.includes('--background');
 
   // 커스텀 경로 옵션 처리
   const localesPathIndex = args.indexOf('--locales-path');
   const localesPath = config?.localesDir
-    ? config?.localesDir
+    ? config.localesDir
     : localesPathIndex !== -1 && args.length > localesPathIndex + 1
       ? args[localesPathIndex + 1]
       : defaultLocalesPath;
 
   const outputPathIndex = args.indexOf('--output-path');
   const outputPath = config?.outputDir
-    ? config?.outputDir
+    ? config.outputDir
     : outputPathIndex !== -1 && args.length > outputPathIndex + 1
       ? args[outputPathIndex + 1]
       : path.join(rootPath, '.i18n');

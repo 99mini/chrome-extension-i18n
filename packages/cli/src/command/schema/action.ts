@@ -4,7 +4,7 @@ import { compileSchema } from './service';
 
 import { actionFn } from '../../type';
 
-export const compileSchemaAction: actionFn = (options) => {
+export const compileSchemaAction: actionFn = async (options) => {
   const args: string[] = [];
 
   if (options.watch) {
@@ -22,5 +22,5 @@ export const compileSchemaAction: actionFn = (options) => {
     return;
   }
 
-  compileSchema(args);
+  await compileSchema(args);
 };

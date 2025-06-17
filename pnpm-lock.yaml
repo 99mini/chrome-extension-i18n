@@ -71,6 +71,9 @@ importers:
       '@99mini/i18n':
         specifier: workspace:*
         version: link:../core
+      '@99mini/i18n-shared':
+        specifier: workspace:*
+        version: link:../shared
       chokidar:
         specifier: ^3.5.3
         version: 3.6.0

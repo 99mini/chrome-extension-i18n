@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n-react",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "React components and hooks for Chrome Extension i18n library",
   "type": "module",
   "main": "dist/index.js",
@@ -41,7 +41,10 @@
     "format": "prettier --write src",
     "test": "echo 'vitest run'",
     "test:watch": "echo 'vitest watch'",
-    "release": "pnpm run clean && pnpm run build && pnpm publish --no-git-checks --access public"
+    "release": "pnpm run clean && pnpm run build && pnpm publish --no-git-checks --access public",
+    "version:patch": "pnpm version patch",
+    "version:minor": "pnpm version minor",
+    "version:major": "pnpm version major"
   },
   "dependencies": {
     "@99mini/i18n": "workspace:*"

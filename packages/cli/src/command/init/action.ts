@@ -16,7 +16,9 @@ export const initAction: actionFn = (options) => {
   const localesDir = options.localesDir || './public/_locales';
   const defaultLanguage = options.defaultLanguage || 'en';
   const supportedLanguages = options.supportedLanguages.split(',') || ['en', 'ko'];
+  const debug = options.debug === 'true';
+  const fallbackLanguage = options.fallbackLanguage || 'en';
 
   // 프로젝트 초기화 실행
-  initProject({ force, ext, outputDir, localesDir, defaultLanguage, supportedLanguages });
+  initProject({ force, ext, outputDir, localesDir, defaultLanguage, supportedLanguages, debug, fallbackLanguage });
 };

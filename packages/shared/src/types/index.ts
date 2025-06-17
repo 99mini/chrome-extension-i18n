@@ -59,13 +59,36 @@ export type TranslateFunction = (key: string, substitutions?: string | string[],
 /**
  * I18n 설정 옵션
  */
-export interface I18nOptions {
-  /** 초기 언어 */
-  initialLanguage?: Language;
-  /** i18n 데이터 경로 */
-  i18nPath?: string;
-  /** 디버그 모드 활성화 여부 */
+export interface I18nConfig {
+  /**
+   * output directory
+   * @default './.i18n'
+   * */
+  outputDir?: string;
+  /**
+   * locales directory
+   * @default './public/_locales'
+   * */
+  localesDir?: string;
+  /**
+   * default language
+   * @default 'en'
+   * */
+  defaultLanguage?: string;
+  /**
+   * supported languages
+   * @default ['en', 'ko']
+   * */
+  supportedLanguages?: string[];
+
+  /**
+   * debug mode
+   * @default false
+   * */
   debug?: boolean;
-  /** 기본 언어 (번역이 없을 때 사용) */
-  fallbackLanguage?: Language;
+  /**
+   * fallback language
+   * @default 'en'
+   * */
+  fallbackLanguage?: string;
 }

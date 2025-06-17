@@ -1,12 +1,20 @@
 /**
  * @see https://github.com/eslint/eslint/blob/main/lib/config/config-loader.js
+ *
  */
 import fsSync from 'fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { I18nConfig } from '../../command/init/type';
+import { I18nConfig } from '../../types';
+
+export const defaultConfig: I18nConfig = {
+  outputDir: './.i18n',
+  localesDir: './_locales',
+  defaultLanguage: 'en',
+  supportedLanguages: ['en', 'ko'],
+};
 
 const FLAT_CONFIG_FILENAMES = [
   'i18n.config.js',
@@ -77,26 +85,17 @@ function isFileRC(filePath: string): boolean {
 }
 
 /**
- * @description Asserts that the given file path is valid.
- * @param {string} filePath The file path to check.
- * @returns {void}
- * @throws {Error} If `filePath` is not a non-empty string.
- */
-function assertValidFilePath(filePath: string): void {
-  if (!filePath || typeof filePath !== 'string') {
-    throw new Error("'filePath' must be a non-empty string");
-  }
-}
-
-/**
  * @description internal function
  */
-export async function loadConfig(): Promise<I18nConfig | null> {
+async function loadConfig(): Promise<I18nConfig> {
   try {
     const configPath = FLAT_CONFIG_FILENAMES.find((fileName) => fsSync.existsSync(path.join(process.cwd(), fileName)));
+
+    /**
+     * return default config
+     */
     if (!configPath) {
-      console.error('Failed to load i18n config: config file not found');
-      return null;
+      return defaultConfig;
     }
 
     const fileURL = pathToFileURL(configPath);
@@ -123,12 +122,45 @@ export async function loadConfig(): Promise<I18nConfig | null> {
     }
 
     if (isJSON || isRC) {
+      importedConfigFileModificationTime.set(configPath, mtime);
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       return require(path.join(process.cwd(), configPath));
     }
 
-    throw new Error('Failed to load i18n config: unknown file type');
+    console.debug('[INFO] return default config');
+
+    return defaultConfig;
   } catch (error) {
-    console.error('Failed to load i18n config:', error);
-    return null;
+    console.error('[ERR] Failed to load i18n config:', error);
+    return defaultConfig;
   }
 }
+
+class ConfigLoader {
+  private instance: ConfigLoader | null = null;
+  private config: I18nConfig | null = null;
+
+  constructor() {
+    this.loadConfig();
+  }
+
+  private async loadConfig() {
+    if (!this.config) {
+      this.config = await loadConfig();
+    }
+    return this.config;
+  }
+
+  getInstance(): ConfigLoader {
+    if (!this.instance) {
+      this.instance = new ConfigLoader();
+    }
+    return this.instance;
+  }
+
+  async getConfig(): Promise<I18nConfig> {
+    return await this.loadConfig();
+  }
+}
+
+export const configLoader = new ConfigLoader();

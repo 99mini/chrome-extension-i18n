@@ -1,6 +1,7 @@
 import fs from 'fs';
-import { loadConfig } from 'lib/config/config-loader';
 import path from 'path';
+
+import { configLoader } from '@99mini/i18n-shared';
 
 /**
  * .i18n 폴더의 messages.json 파일을 확인하여 누락된 번역 키를 찾습니다.
@@ -24,7 +25,7 @@ import path from 'path';
  * ```
  */
 export async function status(args: string[]): Promise<{ key: string; 'missing langs': string }[]> {
-  const config = await loadConfig();
+  const config = await configLoader.getConfig();
   const outputPathIndex = args.indexOf('--output-path');
   const outputPath = config?.outputDir
     ? config?.outputDir

@@ -49,10 +49,15 @@
     "test:react": "turbo run test --filter @99mini/i18n-react",
     "test:cli": "turbo run test --filter @99mini/i18n-cli",
     "clean": "turbo run clean && rimraf node_modules",
+    "release": "turbo run release",
     "release:cli": "turbo run release --filter @99mini/i18n-cli",
+    "release:shared": "turbo run release --filter @99mini/i18n-shared",
     "release:core": "turbo run release --filter @99mini/i18n",
     "release:vanilla": "turbo run release --filter @99mini/i18n-vanilla",
-    "release:react": "turbo run release --filter @99mini/i18n-react"
+    "release:react": "turbo run release --filter @99mini/i18n-react",
+    "version:patch": "turbo run version:patch",
+    "version:minor": "turbo run version:minor",
+    "version:major": "turbo run version:major"
   },
   "devDependencies": {
     "rimraf": "^6.0.1",
