@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n-cli",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "Chrome Extension i18n CLI",
   "main": "dist/bin.js",
   "types": "dist/index.d.ts",
@@ -32,9 +32,7 @@
     "test": "echo 'vitest run'",
     "test:watch": "echo 'vitest watch'",
     "release": "pnpm publish --no-git-checks --access public",
-    "version:patch": "pnpm version patch",
-    "version:minor": "pnpm version minor",
-    "version:major": "pnpm version major"
+    "version": "pnpm version"
   },
   "dependencies": {
     "@99mini/i18n": "workspace:*",

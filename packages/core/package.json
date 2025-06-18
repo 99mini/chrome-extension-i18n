@@ -1,6 +1,6 @@
 {
   "name": "@99mini/i18n",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "Core functionality for Chrome Extension i18n library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -23,9 +23,7 @@
     "test": "echo 'vitest run'",
     "test:watch": "echo 'vitest watch'",
     "release": "pnpm publish --no-git-checks --access public",
-    "version:patch": "pnpm version patch",
-    "version:minor": "pnpm version minor",
-    "version:major": "pnpm version major"
+    "version": "pnpm version"
   },
   "keywords": [
     "i18n",

@@ -1,11 +1,11 @@
 /**
  * Chrome Extension의 i18n API를 사용하는 국제화 모듈
  */
-import { I18n, I18nConfig, configLoader, defaultConfig } from '@99mini/i18n-shared';
+import { I18n, I18nConfig, defaultConfig } from '@99mini/i18n-shared';
 
 let config: I18nConfig = defaultConfig;
 
-configLoader.getConfig().then((_config) => (config = _config));
+// configLoader.getConfig().then((_config) => (config = _config));
 
 const store = {
   _language: (config.defaultLanguage || navigator.language.split('-')[0]) as I18n.Language,

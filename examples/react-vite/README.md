@@ -1,5 +1,16 @@
 # Chrome Extension i18n Example
 
+**Table of Contents**
+
+- [Getting Started](#getting-started)
+- [Build](#build)
+  - [build watch, background](#build-watch-background)
+  - [i18n build only](#i18n-build-only)
+- [Setting](#setting)
+  - [tsconfig.json](#tsconfigjson)
+  - [.gitignore](#gitignore)
+- [Autocomplete & Validation](#autocomplete--validation)
+
 ## Getting Started
 
 ```bash

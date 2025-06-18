@@ -1,3 +1,3 @@
-import { configLoader, defaultConfig } from './config/config-loader';
+import { defaultConfig } from './config/config-loader';
 
-export { configLoader, defaultConfig };
+export { defaultConfig };

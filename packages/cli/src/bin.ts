@@ -7,7 +7,7 @@
  */
 import { program } from 'commander';
 
-import { buildAction, buildLocalesAction, compileSchemaAction, initAction, statusAction } from './command';
+import { buildAction, buildLocalesAction, compileSchemaAction, statusAction } from './command';
 
 import pkg from '../package.json';
 
@@ -48,16 +48,16 @@ program
 
 program.command('status').description('check translation status').action(statusAction);
 
-program
-  .command('init')
-  .description('initialize: tsconfig.json, .gitignore settings and default config file')
-  .option('-f, --force', 'force overwrite')
-  .option('-e, --ext <ext>', 'config file extension (supported: js, ts, mjs, cjs, json, rc)', 'js')
-  .option('-o, --output-dir <path>', 'output directory', './.i18n')
-  .option('-l, --locales-dir <path>', 'locales directory', 'public/_locales')
-  .option('-d, --default-language <language>', 'default language', 'en')
-  .option('-s, --supported-languages <languages>', 'supported languages', 'en,ko')
-  .action(initAction);
+// program
+//   .command('init')
+//   .description('initialize: tsconfig.json, .gitignore settings and default config file')
+//   .option('-f, --force', 'force overwrite')
+//   .option('-e, --ext <ext>', 'config file extension (supported: js, ts, mjs, cjs, json, rc)', 'js')
+//   .option('-o, --output-dir <path>', 'output directory', './.i18n')
+//   .option('-l, --locales-dir <path>', 'locales directory', 'public/_locales')
+//   .option('-d, --default-language <language>', 'default language', 'en')
+//   .option('-s, --supported-languages <languages>', 'supported languages', 'en,ko')
+//   .action(initAction);
 
 // 명령어가 없는 경우 도움말 표시
 program.on('command:*', () => {

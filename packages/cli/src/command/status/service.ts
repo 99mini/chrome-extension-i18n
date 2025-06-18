@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { configLoader } from '@99mini/i18n-shared';
+// import { configLoader } from '@99mini/i18n-shared';
 
 /**
  * .i18n 폴더의 messages.json 파일을 확인하여 누락된 번역 키를 찾습니다.
@@ -25,13 +25,15 @@ import { configLoader } from '@99mini/i18n-shared';
  * ```
  */
 export async function status(args: string[]): Promise<{ key: string; 'missing langs': string }[]> {
-  const config = await configLoader.getConfig();
+  // const config = await configLoader.getConfig();
   const outputPathIndex = args.indexOf('--output-path');
-  const outputPath = config?.outputDir
-    ? config?.outputDir
-    : outputPathIndex !== -1 && args.length > outputPathIndex + 1
-      ? args[outputPathIndex + 1]
-      : './.i18n';
+  // const outputPath = config?.outputDir
+  //   ? config?.outputDir
+  //   : outputPathIndex !== -1 && args.length > outputPathIndex + 1
+  //     ? args[outputPathIndex + 1]
+  //     : './.i18n';
+  const outputPath =
+    outputPathIndex !== -1 && args.length > outputPathIndex + 1 ? args[outputPathIndex + 1] : './.i18n';
 
   const i18nJsonPath = path.join(outputPath, 'i18n.json');
 

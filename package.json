@@ -55,9 +55,7 @@
     "release:core": "turbo run release --filter @99mini/i18n",
     "release:vanilla": "turbo run release --filter @99mini/i18n-vanilla",
     "release:react": "turbo run release --filter @99mini/i18n-react",
-    "version:patch": "turbo run version:patch",
-    "version:minor": "turbo run version:minor",
-    "version:major": "turbo run version:major"
+    "version": "turbo run version"
   },
   "devDependencies": {
     "rimraf": "^6.0.1",

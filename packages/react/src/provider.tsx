@@ -4,7 +4,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import { currentLanguage, loadI18nData, setLanguage, t as translate } from '@99mini/i18n';
-import { configLoader } from '@99mini/i18n-shared';
 
 import { I18nContext, I18nContextType } from './context';
 
@@ -28,9 +27,7 @@ export const I18nProvider = ({ children }: I18nProviderProps) => {
   // 초기 로딩
   useEffect(() => {
     const loadMessages = async () => {
-      const config = await configLoader.getConfig();
-
-      await loadI18nData(`${config.outputDir}/i18n.json`);
+      await loadI18nData('./.i18n/i18n.json');
     };
 
     loadMessages();
