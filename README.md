@@ -1,39 +1,55 @@
 # @99mini/i18n
 
+This is an i18n (internationalization) library for Chrome extensions. It provides a consistent experience in both development and production environments.
+This library is not included in the production environment. (To be updated)
+
+---
+
 Chrome 확장 프로그램을 위한 i18n(국제화) 라이브러리입니다. 개발 환경과 프로덕션 환경에서 일관된 경험을 제공합니다.
+프로덕트 환경에서는 해당 라이브러리를 포함시키지 않습니다. (추후 업데이트)
 
-## 특징
+## Feature | 특징
 
-- Chrome Extension의 i18n API와 완벽하게 호환됩니다.
-- 개발 환경에서 Chrome Extension API 없이도 동작합니다.
-- React, Vanilla JS 등 다양한 프론트엔드 프레임워크를 지원합니다.
-- 타입스크립트로 작성되어 타입 안정성을 제공합니다.
+- Fully compatible with Chrome i18n API
+- Works without Chrome Extension API in development environment
+- Supports various frontend frameworks including React and Vanilla JS
+- Written in TypeScript for type safety
 
-## 프로젝트 구조
+---
+
+- chrome i18n API 완벽하게 호환
+- 개발 환경에서 Chrome Extension API 없이도 동작
+- React, Vanilla JS 등 다양한 프론트엔드 프레임워크를 지원
+- 타입스크립트로 작성되어 타입 안정성을 제공
+
+## Project Structure | 프로젝트 구조
 
 ```
 packages/
-├── shared/       # 공통 타입 및 스크립트
-├── cli/          # CLI 도구
-├── core/         # 핵심 기능 (프레임워크 독립적)
-├── react/        # React 컴포넌트 및 훅
-└── vanilla/      # Vanilla JS 지원
+├── shared/       # shared type & scripts
+├── cli/          # CLI tool
+├── core/         # core package (framework independent)
+├── react/        # React components & hooks
+└── vanilla/      # Vanilla JS support
 ```
 
-## 설치
+## Installation | 설치
 
 ```bash
-# 핵심 패키지
-npm install @99mini/i18n
+# cli tool
+npm install @99mini/i18n-cli --save-dev
 
-# React 지원
-npm install @99mini/i18n-react
+# core package
+npm install @99mini/i18n --save-dev
 
-# Vanilla JS 지원
-npm install @99mini/i18n-vanilla
+# React support
+npm install @99mini/i18n-react --save-dev
+
+# Vanilla JS support
+npm install @99mini/i18n-vanilla --save-dev
 ```
 
-## 개발 환경 설정
+## Development Environment Setting | 개발 환경 설정
 
 ```bash
 pnpm install
@@ -49,6 +65,10 @@ pnpm run test:<package-name>
 # ex) pnpm run test:core
 ```
 
-## 라이센스
+## License | 라이센스
 
 MIT
+
+## TODO
+
+link: [TODO](https://github.com/99mini/chrome-extension-i18n/blob/main/.docs/TODO.md)
